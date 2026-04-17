@@ -5,28 +5,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>來賓基本資料表｜今天聊點不吉利的</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --ink: #1a1410;
-    --paper: #f5f0e8;
-    --aged: #e8dfc8;
-    --rust: #8b3a2a;
-    --rust-light: #c4614d;
-    --charcoal: #3d3530;
-    --muted: #7a6e65;
-    --border: #c8b99a;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&display=swap');
+
+:root {
+–ink: #1a1410;
+–paper: #f5f0e8;
+–aged: #e8dfc8;
+–rust: #8b3a2a;
+–rust-light: #c4614d;
+–charcoal: #3d3530;
+–muted: #7a6e65;
+–border: #c8b99a;
+}
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    background-color: var(--aged);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23e8dfc8'/%3E%3Ccircle cx='1' cy='1' r='0.5' fill='%23d4c8a8' opacity='0.4'/%3E%3Ccircle cx='3' cy='3' r='0.4' fill='%23c8b990' opacity='0.3'/%3E%3C/svg%3E");
-    font-family: 'Noto Sans TC', sans-serif;
-    color: var(--ink);
-    min-height: 100vh;
-    padding: 40px 20px 80px;
+  background-color: var(–aged);
+  font-family: ‘Noto Sans TC’, sans-serif;
+  color: var(–ink);
+  min-height: 100vh;
+  padding: 40px 20px 80px;
   }
   .page-wrapper { max-width: 720px; margin: 0 auto; }
 
@@ -37,74 +36,92 @@
 .form-subtitle { font-size:12px; color:var(–muted); line-height:1.8; max-width:460px; margin:0 auto; }
 .header::after { content:’’; display:block; width:100%; height:1px; background:linear-gradient(to right,transparent,var(–border),transparent); margin-top:24px; }
 
-.form-card { background:#faf7f0; border:1px solid var(–border); border-radius:2px; padding:36px 44px; box-shadow:4px 4px 0 rgba(0,0,0,.08),8px 8px 0 rgba(0,0,0,.04); position:relative; }
-.form-card::before { content:’’; position:absolute; top:0; left:0; right:0; height:4px; background:var(–rust); }
+.form-card { background:#faf7f0; border:1px solid var(–border); border-radius:2px; padding:36px 28px; box-shadow:4px 4px 0 rgba(0,0,0,.08); position:relative; }
+.form-card::before { content:’’; position:absolute; top:0; left:0; right:0; height:4px; background:var(–rust); border-radius:2px 2px 0 0; }
 
 .section { margin-bottom:32px; }
-.section-label { font-family:‘Noto Serif TC’,serif; font-weight:600; font-size:11px; letter-spacing:.25em; color:var(–rust); display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+.section-label { font-family:‘Noto Serif TC’,serif; font-weight:600; font-size:11px; letter-spacing:.2em; color:var(–rust); display:flex; align-items:center; gap:10px; margin-bottom:18px; }
 .section-label::after { content:’’; flex:1; height:1px; background:var(–border); }
-.section-number { display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border:1px solid var(–rust); border-radius:50%; font-size:10px; color:var(–rust); font-family:‘Noto Serif TC’,serif; flex-shrink:0; }
+.section-number { display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border:1.5px solid var(–rust); border-radius:50%; font-size:10px; color:var(–rust); flex-shrink:0; }
 
 .field { display:flex; flex-direction:column; gap:7px; margin-bottom:16px; }
 .field:last-child { margin-bottom:0; }
-.field > label { font-size:12.5px; font-weight:500; color:var(–charcoal); line-height:1.6; }
-.field > label .required { color:var(–rust); margin-left:2px; }
-.field > label .hint { font-weight:300; color:var(–muted); font-size:11px; margin-left:4px; }
+.field > label { font-size:13px; font-weight:500; color:var(–charcoal); line-height:1.6; }
+.hint { font-weight:300; color:var(–muted); font-size:11px; margin-left:4px; }
 .two-col { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
 
 input[type=“text”] {
-width:100%; padding:9px 12px; background:var(–paper); border:1px solid var(–border); border-radius:1px;
-font-family:‘Noto Sans TC’,sans-serif; font-size:13px; color:var(–ink); outline:none; transition:border-color .2s,box-shadow .2s;
+width:100%; padding:10px 12px; background:var(–paper); border:1px solid var(–border); border-radius:4px;
+font-family:‘Noto Sans TC’,sans-serif; font-size:13px; color:var(–ink); outline:none;
 }
 input[type=“text”]:focus { border-color:var(–rust-light); box-shadow:0 0 0 3px rgba(139,58,42,.08); }
 
-.radio-group { display:flex; flex-wrap:wrap; gap:7px; }
-.radio-group label { display:flex; align-items:center; padding:7px 14px; background:var(–paper); border:1px solid var(–border); border-radius:20px; font-size:12px; color:var(–charcoal); cursor:pointer; transition:all .15s; user-select:none; }
-.radio-group label:hover { border-color:var(–rust-light); background:#fff8f5; }
-.radio-group input[type=“radio”] { display:none; }
+.radio-group { display:flex; flex-wrap:wrap; gap:8px; margin-top:4px; }
+.radio-group label {
+display:inline-block;
+padding:8px 16px;
+background:var(–paper);
+border:1.5px solid var(–border);
+border-radius:999px;
+font-size:13px;
+color:var(–charcoal);
+cursor:pointer;
+transition:all .15s;
+-webkit-user-select:none;
+user-select:none;
+line-height:1.4;
+}
+.radio-group label:active { transform:scale(0.97); }
 .radio-group label.selected { background:var(–rust); border-color:var(–rust); color:#fff; }
 
-.check-group { display:flex; flex-wrap:wrap; gap:7px; }
-.check-group label { display:flex; align-items:center; padding:7px 14px; background:var(–paper); border:1px solid var(–border); border-radius:20px; font-size:12px; color:var(–charcoal); cursor:pointer; transition:all .15s; user-select:none; }
-.check-group label:hover { border-color:var(–rust-light); background:#fff8f5; }
-.check-group input[type=“checkbox”] { display:none; }
+.check-group { display:flex; flex-wrap:wrap; gap:8px; margin-top:4px; }
+.check-group label {
+display:inline-block;
+padding:8px 16px;
+background:var(–paper);
+border:1.5px solid var(–border);
+border-radius:999px;
+font-size:13px;
+color:var(–charcoal);
+cursor:pointer;
+transition:all .15s;
+-webkit-user-select:none;
+user-select:none;
+line-height:1.4;
+}
+.check-group label:active { transform:scale(0.97); }
 .check-group label.selected { background:var(–rust); border-color:var(–rust); color:#fff; }
 
-.scale-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-.scale-end { font-size:11px; color:var(–muted); white-space:nowrap; min-width:60px; }
+.scale-row { display:flex; align-items:center; gap:8px; margin-top:4px; }
+.scale-end { font-size:11px; color:var(–muted); white-space:nowrap; min-width:56px; }
 .scale-end.right { text-align:right; }
 .scale-buttons { display:flex; gap:5px; flex:1; }
-.scale-btn { flex:1; padding:8px 4px; background:var(–paper); border:1px solid var(–border); border-radius:2px; font-size:12px; color:var(–muted); cursor:pointer; text-align:center; transition:all .15s; font-family:‘Noto Sans TC’,sans-serif; }
-.scale-btn:hover { border-color:var(–rust-light); }
+.scale-btn { flex:1; padding:9px 4px; background:var(–paper); border:1.5px solid var(–border); border-radius:4px; font-size:13px; color:var(–muted); cursor:pointer; text-align:center; font-family:‘Noto Sans TC’,sans-serif; transition:all .15s; }
 .scale-btn.active { background:var(–rust); border-color:var(–rust); color:#fff; font-weight:500; }
 
-.fill-line { display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:13px; color:var(–charcoal); line-height:2.4; }
-.fill-line input { border:none; border-bottom:1px solid var(–border); background:transparent; padding:2px 6px; font-family:‘Noto Sans TC’,sans-serif; font-size:13px; color:var(–ink); outline:none; }
+.fill-line { display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:13px; color:var(–charcoal); line-height:2.6; }
+.fill-line input { border:none; border-bottom:1.5px solid var(–border); background:transparent; padding:2px 6px; font-family:‘Noto Sans TC’,sans-serif; font-size:13px; color:var(–ink); outline:none; }
 .fill-line input:focus { border-bottom-color:var(–rust); }
 .fill-line input.w-xs { width:55px; }
 .fill-line input.w-sm { width:90px; }
-.fill-line input.w-md { width:150px; }
-.fill-line input.w-lg { width:210px; }
+.fill-line input.w-lg { width:200px; }
 
-/* Repeater */
 .repeater { display:flex; flex-direction:column; gap:8px; }
 .repeater-row { display:flex; gap:8px; align-items:center; }
-.repeater-row input { flex:1; padding:8px 11px; background:var(–paper); border:1px solid var(–border); border-radius:1px; font-family:‘Noto Sans TC’,sans-serif; font-size:12.5px; color:var(–ink); outline:none; transition:border-color .2s; }
-.repeater-row input:focus { border-color:var(–rust-light); }
-.remove-row { background:none; border:1px solid var(–border); border-radius:50%; width:24px; height:24px; cursor:pointer; color:var(–muted); font-size:15px; line-height:1; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all .15s; }
-.remove-row:hover { border-color:var(–rust); color:var(–rust); }
-.add-row-btn { display:inline-flex; align-items:center; gap:6px; padding:6px 14px; background:transparent; border:1px dashed var(–border); border-radius:20px; font-size:12px; color:var(–muted); cursor:pointer; transition:all .15s; font-family:‘Noto Sans TC’,sans-serif; margin-top:6px; }
-.add-row-btn:hover { border-color:var(–rust-light); color:var(–rust); }
+.repeater-row input { flex:1; padding:9px 12px; background:var(–paper); border:1px solid var(–border); border-radius:4px; font-family:‘Noto Sans TC’,sans-serif; font-size:13px; color:var(–ink); outline:none; }
+.remove-row { background:none; border:1.5px solid var(–border); border-radius:50%; width:28px; height:28px; cursor:pointer; color:var(–muted); font-size:16px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.remove-row:active { border-color:var(–rust); color:var(–rust); }
+.add-row-btn { display:inline-flex; align-items:center; gap:6px; padding:7px 16px; background:transparent; border:1.5px dashed var(–border); border-radius:999px; font-size:12px; color:var(–muted); cursor:pointer; font-family:‘Noto Sans TC’,sans-serif; margin-top:6px; }
 
 .divider { height:1px; background:linear-gradient(to right,transparent,var(–border),transparent); margin:4px 0 32px; }
-.privacy-note { background:rgba(139,58,42,.05); border-left:3px solid var(–rust); padding:12px 16px; margin-bottom:28px; font-size:11.5px; color:var(–muted); line-height:1.7; }
+.privacy-note { background:rgba(139,58,42,.06); border-left:3px solid var(–rust); padding:12px 16px; margin-bottom:28px; font-size:12px; color:var(–muted); line-height:1.8; }
 
 .submit-row { display:flex; flex-direction:column; align-items:center; gap:10px; }
-.submit-btn { background:var(–rust); color:#fff; border:none; padding:13px 48px; font-family:‘Noto Serif TC’,serif; font-size:14px; font-weight:600; letter-spacing:.15em; cursor:pointer; border-radius:1px; transition:background .2s,transform .1s; }
-.submit-btn:hover { background:var(–charcoal); transform:translateY(-1px); }
+.submit-btn { background:var(–rust); color:#fff; border:none; padding:14px 52px; font-family:‘Noto Serif TC’,serif; font-size:15px; font-weight:600; letter-spacing:.15em; cursor:pointer; border-radius:2px; }
+.submit-btn:active { background:var(–charcoal); }
 .submit-note { font-size:11px; color:var(–muted); }
 
-.success-overlay { display:none; text-align:center; padding:60px 40px; }
+.success-overlay { display:none; text-align:center; padding:60px 20px; }
 .success-overlay.show { display:block; }
 .success-icon { font-size:36px; margin-bottom:18px; }
 .success-title { font-family:‘Noto Serif TC’,serif; font-size:20px; font-weight:600; margin-bottom:10px; }
@@ -113,7 +130,7 @@ input[type=“text”]:focus { border-color:var(–rust-light); box-shadow:0 0 0
 .footer { text-align:center; margin-top:28px; font-size:11px; color:var(–muted); letter-spacing:.1em; }
 
 @media (max-width:600px) {
-.form-card { padding:26px 18px; }
+.form-card { padding:24px 16px; }
 .two-col { grid-template-columns:1fr; }
 .form-title { font-size:22px; }
 .scale-end { min-width:44px; font-size:10px; }
@@ -585,7 +602,7 @@ input[type=“text”]:focus { border-color:var(–rust-light); box-shadow:0 0 0
     var repeater = document.getElementById(repeaterId);
     var row = document.createElement('div');
     row.className = 'repeater-row';
-    row.innerHTML = '<input type="text" placeholder="' + placeholder + '"><button type="button" class="remove-row" onclick="removeRow(this)">x</button>';
+    row.innerHTML = '<input type="text" name="' + repeaterId + '[]" placeholder="' + placeholder + '"><button type="button" class="remove-row" onclick="removeRow(this)">x</button>';
     repeater.appendChild(row);
   }
   function removeRow(btn) {
@@ -597,47 +614,77 @@ input[type=“text”]:focus { border-color:var(–rust-light); box-shadow:0 0 0
     }
   }
 
-  // Submit via Web3Forms
+  // Submit
   document.getElementById('submitBtn').addEventListener('click', function() {
     var btn = this;
     btn.textContent = '送出中…';
     btn.disabled = true;
 
-    var data = { access_key: '0607e41e-edb8-417c-a855-c4d06e2e26e2', subject: '【今天聊點不吉利的】新來賓資料表' };
+    var data = {
+      access_key: '0607e41e-edb8-417c-a855-c4d06e2e26e2',
+      subject: '【今天聊點不吉利的】新來賓資料表'
+    };
 
-    // Text inputs
-    document.querySelectorAll('#guestForm input[type="text"]').forEach(function(inp) {
-      if (inp.name && inp.value.trim()) data[inp.name] = inp.value.trim();
-    });
+    // 收集所有 field 區塊
+    document.querySelectorAll('.field').forEach(function(field) {
+      // 取得題目文字
+      var labelEl = field.querySelector(':scope > label');
+      if (!labelEl) return;
+      var key = labelEl.childNodes[0] ? labelEl.childNodes[0].textContent.trim() : labelEl.textContent.trim();
+      if (!key) return;
 
-    // Radio groups
-    document.querySelectorAll('.radio-group').forEach(function(group) {
-      var field = group.closest('.field');
-      var labelEl = field ? field.querySelector('label') : null;
-      var key = labelEl ? labelEl.childNodes[0].textContent.trim().slice(0, 50) : '單選';
-      var sel = group.querySelector('label.selected');
-      if (sel) data[key] = sel.textContent.trim();
-    });
-
-    // Check groups
-    document.querySelectorAll('.check-group').forEach(function(group) {
-      var field = group.closest('.field');
-      var labelEl = field ? field.querySelector('label') : null;
-      var key = labelEl ? labelEl.childNodes[0].textContent.trim().slice(0, 50) : '複選';
-      var vals = [];
-      group.querySelectorAll('label.selected').forEach(function(l) { vals.push(l.textContent.trim()); });
-      if (vals.length) data[key] = vals.join('、');
-    });
-
-    // Scale
-    document.querySelectorAll('.scale-buttons').forEach(function(sb) {
-      var active = sb.querySelectorAll('.scale-btn.active');
-      if (active.length) {
-        var field = sb.closest('.field');
-        var labelEl = field ? field.querySelector('label') : null;
-        var key = labelEl ? labelEl.childNodes[0].textContent.trim().slice(0, 50) : '量表';
-        data[key] = active.length + ' / 5';
+      // text input
+      var textInp = field.querySelector('input[type="text"][name]');
+      if (textInp && textInp.value.trim()) {
+        data[key] = textInp.value.trim();
+        return;
       }
+
+      // fill-line (多個 input)
+      var fillInputs = field.querySelectorAll('.fill-line input[type="text"]');
+      if (fillInputs.length > 0) {
+        var parts = [];
+        fillInputs.forEach(function(inp) {
+          if (inp.value.trim()) parts.push(inp.value.trim());
+        });
+        if (parts.length) data[key] = parts.join(' / ');
+        return;
+      }
+
+      // radio
+      var radioSel = field.querySelector('.radio-group label.selected');
+      if (radioSel) {
+        data[key] = radioSel.textContent.trim();
+        return;
+      }
+
+      // checkbox
+      var checkSels = field.querySelectorAll('.check-group label.selected');
+      if (checkSels.length) {
+        var vals = [];
+        checkSels.forEach(function(l) { vals.push(l.textContent.trim()); });
+        data[key] = vals.join('、');
+        return;
+      }
+
+      // scale
+      var scaleActive = field.querySelectorAll('.scale-btn.active');
+      if (scaleActive.length) {
+        data[key] = scaleActive.length + ' / 5';
+        return;
+      }
+    });
+
+    // repeater 欄位
+    document.querySelectorAll('.repeater').forEach(function(rep) {
+      var field = rep.closest('.field');
+      var labelEl = field ? field.querySelector(':scope > label') : null;
+      var key = labelEl ? labelEl.childNodes[0].textContent.trim() : rep.id;
+      var vals = [];
+      rep.querySelectorAll('input[type="text"]').forEach(function(inp) {
+        if (inp.value.trim()) vals.push(inp.value.trim());
+      });
+      if (vals.length) data[key] = vals.join('、');
     });
 
     fetch('https://api.web3forms.com/submit', {
