@@ -5,6 +5,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>來賓基本資料表｜今天聊點不吉利的</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -138,17 +140,17 @@ input[type=“text”]:focus { border-color:var(–rust-light); box-shadow:0 0 0
   <div class="two-col">
     <div class="field">
       <label>稱呼／姓名 </label>
-      <input type="text" placeholder="例：小明、林小姐">
+      <input type="text" name="姓名稱呼" placeholder="例：小明、林小姐">
     </div>
     <div class="field">
       <label>聯絡方式 </label>
-      <input type="text" placeholder="email 或 LINE ID">
+      <input type="text" name="聯絡方式" placeholder="email 或 LINE ID">
     </div>
   </div>
   <div class="two-col" style="margin-top:14px;">
     <div class="field">
       <label>職業／身分 </label>
-      <input type="text" placeholder="例：護理師、社工、作家">
+      <input type="text" name="職業身分" placeholder="例：護理師、社工、作家">
     </div>
     <div class="field">
       <label>從業年資 </label>
@@ -203,8 +205,8 @@ input[type=“text”]:focus { border-color:var(–rust-light); box-shadow:0 0 0
   <div class="field" style="margin-top:16px;">
     <label>家族裡有沒有影響你最深的人？<span class="hint">（可不填）</span></label>
     <div class="fill-line">
-      <input type="text" class="w-sm" placeholder="稱謂或名字">，對你的影響是
-      <input type="text" class="w-lg" placeholder="一句話就好">
+      <input type="text" class="w-sm" name="影響最深的人" placeholder="稱謂或名字">，對你的影響是
+      <input type="text" class="w-lg" name="影響方式" placeholder="一句話就好">
     </div>
   </div>
 
@@ -251,8 +253,8 @@ input[type=“text”]:focus { border-color:var(–rust-light); box-shadow:0 0 0
   <div class="field" style="margin-top:16px;">
     <label>你第一次「真正意識到死亡」是幾歲？大概是什麼情況？</label>
     <div class="fill-line">
-      大約 <input type="text" class="w-xs" placeholder="歲"> 歲，當時
-      <input type="text" class="w-lg" placeholder="一句話描述情境即可">
+      大約 <input type="text" class="w-xs" name="第一次意識死亡歲數" placeholder="歲"> 歲，當時
+      <input type="text" class="w-lg" name="第一次意識死亡情境" placeholder="一句話描述情境即可">
     </div>
   </div>
 </div>
@@ -276,14 +278,14 @@ input[type=“text”]:focus { border-color:var(–rust-light); box-shadow:0 0 0
   <div class="field" style="margin-top:16px;">
     <label>如果要說一個「關鍵轉折」，大概在幾歲、發生了什麼？</label>
     <div class="fill-line">
-      大約 <input type="text" class="w-xs" placeholder="歲"> 歲，
-      <input type="text" class="w-lg" placeholder="一句話帶過即可">
+      大約 <input type="text" class="w-xs" name="關鍵轉折歲數" placeholder="歲"> 歲，
+      <input type="text" class="w-lg" name="關鍵轉折描述" placeholder="一句話帶過即可">
     </div>
   </div>
 
   <div class="field" style="margin-top:16px;">
     <label>走進這個領域後，你最常被問到的問題是？</label>
-    <input type="text" placeholder="例：「你不會怕嗎？」「這樣工作心情不會很差嗎？」">
+    <input type="text" name="常被問的問題" placeholder="例：「你不會怕嗎？」「這樣工作心情不會很差嗎？」">
   </div>
 
   <div class="field" style="margin-top:16px;">
@@ -308,7 +310,7 @@ input[type=“text”]:focus { border-color:var(–rust-light); box-shadow:0 0 0
     <label>你有沒有獲得過獎項、認證或榮譽？<span class="hint">（有幾個填幾個，可不填）</span></label>
     <div class="repeater" id="awards-repeater">
       <div class="repeater-row">
-        <input type="text" placeholder="例：台灣安寧照顧協會認證、某某文學獎…">
+        <input type="text" name="獎項認證" placeholder="例：台灣安寧照顧協會認證、某某文學獎…">
         <button type="button" class="remove-row" onclick="removeRow(this)">×</button>
       </div>
     </div>
@@ -319,7 +321,7 @@ input[type=“text”]:focus { border-color:var(–rust-light); box-shadow:0 0 0
     <label>有沒有出版過書、文章，或接受過媒體採訪？<span class="hint">（可不填）</span></label>
     <div class="repeater" id="media-repeater">
       <div class="repeater-row">
-        <input type="text" placeholder="例：《書名》、某某雜誌專訪、TED 演講…">
+        <input type="text" name="出版媒體" placeholder="例：《書名》、某某雜誌專訪、TED 演講…">
         <button type="button" class="remove-row" onclick="removeRow(this)">×</button>
       </div>
     </div>
@@ -504,7 +506,7 @@ input[type=“text”]:focus { border-color:var(–rust-light); box-shadow:0 0 0
 
   <div class="field" style="margin-top:18px;">
     <label>有沒有一個問題，是你最怕在訪談裡被問到的？<span class="hint">（可不填，但很有用）</span></label>
-    <input type="text" placeholder="例：「你後悔嗎？」「你怕死嗎？」——直覺填就好">
+    <input type="text" name="最怕被問的問題" placeholder="例：「你後悔嗎？」「你怕死嗎？」——直覺填就好">
   </div>
 </div>
 
@@ -516,12 +518,12 @@ input[type=“text”]:focus { border-color:var(–rust-light); box-shadow:0 0 0
 
   <div class="field">
     <label>用一句話完成這個句子：「如果你問我怎麼看待死亡，我會說⋯⋯」</label>
-    <input type="text" placeholder="不用想太久，直覺填就好">
+    <input type="text" name="如何看待死亡" placeholder="不用想太久，直覺填就好">
   </div>
 
   <div class="field" style="margin-top:16px;">
     <label>有沒有什麼補充想讓凱皓知道的？<span class="hint">（可不填）</span></label>
-    <input type="text" placeholder="例：採訪連結、最近在做的事、特別想提的細節…">
+    <input type="text" name="補充說明" placeholder="例：採訪連結、最近在做的事、特別想提的細節…">
   </div>
 </div>
 
