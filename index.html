@@ -1,1 +1,667 @@
+<!DOCTYPE html>
 
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>來賓基本資料表｜今天聊點不吉利的</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1410;
+    --paper: #f5f0e8;
+    --aged: #e8dfc8;
+    --rust: #8b3a2a;
+    --rust-light: #c4614d;
+    --charcoal: #3d3530;
+    --muted: #7a6e65;
+    --border: #c8b99a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background-color: var(--aged);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23e8dfc8'/%3E%3Ccircle cx='1' cy='1' r='0.5' fill='%23d4c8a8' opacity='0.4'/%3E%3Ccircle cx='3' cy='3' r='0.4' fill='%23c8b990' opacity='0.3'/%3E%3C/svg%3E");
+    font-family: 'Noto Sans TC', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 40px 20px 80px;
+  }
+  .page-wrapper { max-width: 720px; margin: 0 auto; }
+
+.header { text-align: center; margin-bottom: 40px; position: relative; }
+.header::before { content:’’; display:block; width:60px; height:3px; background:var(–rust); margin:0 auto 20px; }
+.podcast-name { font-family:‘Noto Serif TC’,serif; font-weight:900; font-size:12px; letter-spacing:.3em; color:var(–rust); margin-bottom:10px; }
+.form-title { font-family:‘Noto Serif TC’,serif; font-weight:600; font-size:26px; line-height:1.4; margin-bottom:10px; }
+.form-subtitle { font-size:12px; color:var(–muted); line-height:1.8; max-width:460px; margin:0 auto; }
+.header::after { content:’’; display:block; width:100%; height:1px; background:linear-gradient(to right,transparent,var(–border),transparent); margin-top:24px; }
+
+.form-card { background:#faf7f0; border:1px solid var(–border); border-radius:2px; padding:36px 44px; box-shadow:4px 4px 0 rgba(0,0,0,.08),8px 8px 0 rgba(0,0,0,.04); position:relative; }
+.form-card::before { content:’’; position:absolute; top:0; left:0; right:0; height:4px; background:var(–rust); }
+
+.section { margin-bottom:32px; }
+.section-label { font-family:‘Noto Serif TC’,serif; font-weight:600; font-size:11px; letter-spacing:.25em; color:var(–rust); display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+.section-label::after { content:’’; flex:1; height:1px; background:var(–border); }
+.section-number { display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border:1px solid var(–rust); border-radius:50%; font-size:10px; color:var(–rust); font-family:‘Noto Serif TC’,serif; flex-shrink:0; }
+
+.field { display:flex; flex-direction:column; gap:7px; margin-bottom:16px; }
+.field:last-child { margin-bottom:0; }
+.field > label { font-size:12.5px; font-weight:500; color:var(–charcoal); line-height:1.6; }
+.field > label .required { color:var(–rust); margin-left:2px; }
+.field > label .hint { font-weight:300; color:var(–muted); font-size:11px; margin-left:4px; }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+
+input[type=“text”] {
+width:100%; padding:9px 12px; background:var(–paper); border:1px solid var(–border); border-radius:1px;
+font-family:‘Noto Sans TC’,sans-serif; font-size:13px; color:var(–ink); outline:none; transition:border-color .2s,box-shadow .2s;
+}
+input[type=“text”]:focus { border-color:var(–rust-light); box-shadow:0 0 0 3px rgba(139,58,42,.08); }
+
+.radio-group { display:flex; flex-wrap:wrap; gap:7px; }
+.radio-group label { display:flex; align-items:center; padding:7px 14px; background:var(–paper); border:1px solid var(–border); border-radius:20px; font-size:12px; color:var(–charcoal); cursor:pointer; transition:all .15s; user-select:none; }
+.radio-group label:hover { border-color:var(–rust-light); background:#fff8f5; }
+.radio-group input[type=“radio”] { display:none; }
+.radio-group label.selected { background:var(–rust); border-color:var(–rust); color:#fff; }
+
+.check-group { display:flex; flex-wrap:wrap; gap:7px; }
+.check-group label { display:flex; align-items:center; padding:7px 14px; background:var(–paper); border:1px solid var(–border); border-radius:20px; font-size:12px; color:var(–charcoal); cursor:pointer; transition:all .15s; user-select:none; }
+.check-group label:hover { border-color:var(–rust-light); background:#fff8f5; }
+.check-group input[type=“checkbox”] { display:none; }
+.check-group label.selected { background:var(–rust); border-color:var(–rust); color:#fff; }
+
+.scale-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.scale-end { font-size:11px; color:var(–muted); white-space:nowrap; min-width:60px; }
+.scale-end.right { text-align:right; }
+.scale-buttons { display:flex; gap:5px; flex:1; }
+.scale-btn { flex:1; padding:8px 4px; background:var(–paper); border:1px solid var(–border); border-radius:2px; font-size:12px; color:var(–muted); cursor:pointer; text-align:center; transition:all .15s; font-family:‘Noto Sans TC’,sans-serif; }
+.scale-btn:hover { border-color:var(–rust-light); }
+.scale-btn.active { background:var(–rust); border-color:var(–rust); color:#fff; font-weight:500; }
+
+.fill-line { display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:13px; color:var(–charcoal); line-height:2.4; }
+.fill-line input { border:none; border-bottom:1px solid var(–border); background:transparent; padding:2px 6px; font-family:‘Noto Sans TC’,sans-serif; font-size:13px; color:var(–ink); outline:none; }
+.fill-line input:focus { border-bottom-color:var(–rust); }
+.fill-line input.w-xs { width:55px; }
+.fill-line input.w-sm { width:90px; }
+.fill-line input.w-md { width:150px; }
+.fill-line input.w-lg { width:210px; }
+
+/* Repeater */
+.repeater { display:flex; flex-direction:column; gap:8px; }
+.repeater-row { display:flex; gap:8px; align-items:center; }
+.repeater-row input { flex:1; padding:8px 11px; background:var(–paper); border:1px solid var(–border); border-radius:1px; font-family:‘Noto Sans TC’,sans-serif; font-size:12.5px; color:var(–ink); outline:none; transition:border-color .2s; }
+.repeater-row input:focus { border-color:var(–rust-light); }
+.remove-row { background:none; border:1px solid var(–border); border-radius:50%; width:24px; height:24px; cursor:pointer; color:var(–muted); font-size:15px; line-height:1; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all .15s; }
+.remove-row:hover { border-color:var(–rust); color:var(–rust); }
+.add-row-btn { display:inline-flex; align-items:center; gap:6px; padding:6px 14px; background:transparent; border:1px dashed var(–border); border-radius:20px; font-size:12px; color:var(–muted); cursor:pointer; transition:all .15s; font-family:‘Noto Sans TC’,sans-serif; margin-top:6px; }
+.add-row-btn:hover { border-color:var(–rust-light); color:var(–rust); }
+
+.divider { height:1px; background:linear-gradient(to right,transparent,var(–border),transparent); margin:4px 0 32px; }
+.privacy-note { background:rgba(139,58,42,.05); border-left:3px solid var(–rust); padding:12px 16px; margin-bottom:28px; font-size:11.5px; color:var(–muted); line-height:1.7; }
+
+.submit-row { display:flex; flex-direction:column; align-items:center; gap:10px; }
+.submit-btn { background:var(–rust); color:#fff; border:none; padding:13px 48px; font-family:‘Noto Serif TC’,serif; font-size:14px; font-weight:600; letter-spacing:.15em; cursor:pointer; border-radius:1px; transition:background .2s,transform .1s; }
+.submit-btn:hover { background:var(–charcoal); transform:translateY(-1px); }
+.submit-note { font-size:11px; color:var(–muted); }
+
+.success-overlay { display:none; text-align:center; padding:60px 40px; }
+.success-overlay.show { display:block; }
+.success-icon { font-size:36px; margin-bottom:18px; }
+.success-title { font-family:‘Noto Serif TC’,serif; font-size:20px; font-weight:600; margin-bottom:10px; }
+.success-text { font-size:13px; color:var(–muted); line-height:1.9; }
+
+.footer { text-align:center; margin-top:28px; font-size:11px; color:var(–muted); letter-spacing:.1em; }
+
+@media (max-width:600px) {
+.form-card { padding:26px 18px; }
+.two-col { grid-template-columns:1fr; }
+.form-title { font-size:22px; }
+.scale-end { min-width:44px; font-size:10px; }
+}
+</style>
+
+</head>
+<body>
+<div class="page-wrapper">
+
+  <div class="header">
+    <div class="podcast-name">今天聊點不吉利的 × 來賓資料表</div>
+    <h1 class="form-title">在我們相遇之前<br>讓我先認識你</h1>
+    <p class="form-subtitle">填寫大約 8–10 分鐘。這份資料只有主持人凱皓看，幫助他在訪談前為你設計更到位的問題。</p>
+  </div>
+
+  <div class="form-card">
+  <form id="guestForm">
+
+```
+<!-- ① 基本資訊 -->
+<div class="section">
+  <div class="section-label"><span class="section-number">1</span>基本資訊</div>
+  <div class="two-col">
+    <div class="field">
+      <label>稱呼／姓名 </label>
+      <input type="text" placeholder="例：小明、林小姐">
+    </div>
+    <div class="field">
+      <label>聯絡方式 </label>
+      <input type="text" placeholder="email 或 LINE ID">
+    </div>
+  </div>
+  <div class="two-col" style="margin-top:14px;">
+    <div class="field">
+      <label>職業／身分 </label>
+      <input type="text" placeholder="例：護理師、社工、作家">
+    </div>
+    <div class="field">
+      <label>從業年資 </label>
+      <div class="radio-group" style="margin-top:2px;">
+        <label><span>1年以下</span></label>
+        <label><span>1–5年</span></label>
+        <label><span>5–10年</span></label>
+        <label><span>10年以上</span></label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ② 家庭背景 -->
+<div class="section">
+  <div class="section-label"><span class="section-number">2</span>家庭背景</div>
+
+  <div class="field">
+    <label>你在家中的排行？ </label>
+    <div class="radio-group">
+      <label><span>獨生子女</span></label>
+      <label><span>老大</span></label>
+      <label><span>中間</span></label>
+      <label><span>老么</span></label>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:16px;">
+    <label>你的成長環境比較像是？ </label>
+    <div class="radio-group">
+      <label><span>雙親家庭</span></label>
+      <label><span>單親家庭</span></label>
+      <label><span>隔代教養</span></label>
+      <label><span>大家庭同住</span></label>
+      <label><span>其他</span></label>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:16px;">
+    <label>家人對你從事這個行業或走這條路，態度是？ </label>
+    <div class="radio-group">
+      <label><span>非常支持</span></label>
+      <label><span>接受，但有疑慮</span></label>
+      <label><span>沉默，沒有表態</span></label>
+      <label><span>明確反對過</span></label>
+      <label><span>家人不知道</span></label>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:16px;">
+    <label>家族裡有沒有影響你最深的人？<span class="hint">（可不填）</span></label>
+    <div class="fill-line">
+      <input type="text" class="w-sm" placeholder="稱謂或名字">，對你的影響是
+      <input type="text" class="w-lg" placeholder="一句話就好">
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:16px;">
+    <label>在你成長過程中，家裡有沒有特別避諱談論死亡？ </label>
+    <div class="radio-group">
+      <label><span>非常避諱，這是禁忌</span></label>
+      <label><span>有點避諱，但偶爾還是說</span></label>
+      <label><span>普通，沒特別在意</span></label>
+      <label><span>相對開放，會討論</span></label>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ③ 你與死亡的距離 -->
+<div class="section">
+  <div class="section-label"><span class="section-number">3</span>你與「死亡」的距離</div>
+
+  <div class="field">
+    <label>在你的工作或生活中，死亡大概是什麼頻率出現的事？ </label>
+    <div class="radio-group">
+      <label><span>幾乎每天</span></label>
+      <label><span>每週幾次</span></label>
+      <label><span>偶爾才會</span></label>
+      <label><span>很少，但很深刻</span></label>
+      <label><span>不在工作裡，在生命裡</span></label>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:16px;">
+    <label>你與死亡的連結，主要透過什麼？<span class="hint">（可複選）</span></label>
+    <div class="check-group">
+      <label><span>職業直接接觸</span></label>
+      <label><span>親人／朋友的離開</span></label>
+      <label><span>自身的生病或意外</span></label>
+      <label><span>長期陪伴臨終者</span></label>
+      <label><span>創作或研究</span></label>
+      <label><span>信仰或靈性探索</span></label>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:16px;">
+    <label>你第一次「真正意識到死亡」是幾歲？大概是什麼情況？</label>
+    <div class="fill-line">
+      大約 <input type="text" class="w-xs" placeholder="歲"> 歲，當時
+      <input type="text" class="w-lg" placeholder="一句話描述情境即可">
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ④ 走進這條路 -->
+<div class="section">
+  <div class="section-label"><span class="section-number">4</span>走進這條路的故事</div>
+
+  <div class="field">
+    <label>你走進這個領域，比較像是？ </label>
+    <div class="radio-group">
+      <label><span>從小就有的方向</span></label>
+      <label><span>人生某個轉折後的選擇</span></label>
+      <label><span>被一個人或事件帶進來的</span></label>
+      <label><span>陰錯陽差，說不清楚</span></label>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:16px;">
+    <label>如果要說一個「關鍵轉折」，大概在幾歲、發生了什麼？</label>
+    <div class="fill-line">
+      大約 <input type="text" class="w-xs" placeholder="歲"> 歲，
+      <input type="text" class="w-lg" placeholder="一句話帶過即可">
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:16px;">
+    <label>走進這個領域後，你最常被問到的問題是？</label>
+    <input type="text" placeholder="例：「你不會怕嗎？」「這樣工作心情不會很差嗎？」">
+  </div>
+
+  <div class="field" style="margin-top:16px;">
+    <label>你覺得最難回答的問題類型是？ </label>
+    <div class="radio-group">
+      <label><span>「你不害怕嗎？」</span></label>
+      <label><span>「你這樣會不會很難過？」</span></label>
+      <label><span>「為什麼要做這行？」</span></label>
+      <label><span>「你自己怎麼看待死亡？」</span></label>
+      <label><span>其他</span></label>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ⑤ 特殊經歷與成就 -->
+<div class="section">
+  <div class="section-label"><span class="section-number">5</span>特殊經歷與成就</div>
+
+  <div class="field">
+    <label>你有沒有獲得過獎項、認證或榮譽？<span class="hint">（有幾個填幾個，可不填）</span></label>
+    <div class="repeater" id="awards-repeater">
+      <div class="repeater-row">
+        <input type="text" placeholder="例：台灣安寧照顧協會認證、某某文學獎…">
+        <button type="button" class="remove-row" onclick="removeRow(this)">×</button>
+      </div>
+    </div>
+    <button type="button" class="add-row-btn" onclick="addRow('awards-repeater','例：獎項或認證名稱…')">＋ 新增一筆</button>
+  </div>
+
+  <div class="field" style="margin-top:20px;">
+    <label>有沒有出版過書、文章，或接受過媒體採訪？<span class="hint">（可不填）</span></label>
+    <div class="repeater" id="media-repeater">
+      <div class="repeater-row">
+        <input type="text" placeholder="例：《書名》、某某雜誌專訪、TED 演講…">
+        <button type="button" class="remove-row" onclick="removeRow(this)">×</button>
+      </div>
+    </div>
+    <button type="button" class="add-row-btn" onclick="addRow('media-repeater','例：書名、媒體名稱…')">＋ 新增一筆</button>
+  </div>
+
+  <div class="field" style="margin-top:20px;">
+    <label>在你的生命或職涯裡，有沒有特別難忘的事件？<span class="hint">（可複選）</span></label>
+    <div class="check-group">
+      <label><span>重大意外或疾病</span></label>
+      <label><span>至親離世</span></label>
+      <label><span>職涯上的重大挫折</span></label>
+      <label><span>改變人生方向的相遇</span></label>
+      <label><span>出走或移居</span></label>
+      <label><span>創業或轉行</span></label>
+      <label><span>某個難以言說的案例</span></label>
+      <label><span>暫時想不到</span></label>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:16px;">
+    <label>其中有沒有「很少對外說，但其實很想讓人知道」的事？ </label>
+    <div class="radio-group">
+      <label><span>有，而且我願意在節目裡聊</span></label>
+      <label><span>有，但要看情況</span></label>
+      <label><span>沒有，我都說得很開</span></label>
+      <label><span>有，但這次暫時不想提</span></label>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ⑥ 你現在的狀態 -->
+<div class="section">
+  <div class="section-label"><span class="section-number">6</span>你現在的狀態</div>
+
+  <div class="field">
+    <label>對你來說，現在走在這條路上，心情比較像是？ </label>
+    <div class="radio-group">
+      <label><span>仍然充滿熱情</span></label>
+      <label><span>平穩，找到了節奏</span></label>
+      <label><span>有點疲憊，但還在</span></label>
+      <label><span>正在重新思考自己的位置</span></label>
+      <label><span>已轉換，帶著過去繼續走</span></label>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:16px;">
+    <label>你覺得社會對你的職業或身份，理解程度有多少？</label>
+    <div class="scale-row">
+      <span class="scale-end">完全不理解</span>
+      <div class="scale-buttons" id="scale-understand">
+        <button type="button" class="scale-btn" onclick="selectScale('scale-understand',1)">1</button>
+        <button type="button" class="scale-btn" onclick="selectScale('scale-understand',2)">2</button>
+        <button type="button" class="scale-btn" onclick="selectScale('scale-understand',3)">3</button>
+        <button type="button" class="scale-btn" onclick="selectScale('scale-understand',4)">4</button>
+        <button type="button" class="scale-btn" onclick="selectScale('scale-understand',5)">5</button>
+      </div>
+      <span class="scale-end right">完全理解</span>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:16px;">
+    <label>你對「公開談論這些事」的意願有多高？</label>
+    <div class="scale-row">
+      <span class="scale-end">很保留</span>
+      <div class="scale-buttons" id="scale-openness">
+        <button type="button" class="scale-btn" onclick="selectScale('scale-openness',1)">1</button>
+        <button type="button" class="scale-btn" onclick="selectScale('scale-openness',2)">2</button>
+        <button type="button" class="scale-btn" onclick="selectScale('scale-openness',3)">3</button>
+        <button type="button" class="scale-btn" onclick="selectScale('scale-openness',4)">4</button>
+        <button type="button" class="scale-btn" onclick="selectScale('scale-openness',5)">5</button>
+      </div>
+      <span class="scale-end right">很願意說</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ⑦ 訪談方向 -->
+<div class="section">
+  <div class="section-label"><span class="section-number">7</span>訪談方向</div>
+
+  <div class="field">
+    <label>你希望這次訪談之後，聽眾帶走的是？<span class="hint">（最多選 2 個）</span></label>
+    <div class="check-group">
+      <label><span>對這個職業的真實理解</span></label>
+      <label><span>一個讓人反思的故事</span></label>
+      <label><span>關於死亡的不同視角</span></label>
+      <label><span>你這個人本身</span></label>
+      <label><span>一個可以行動的觀念</span></label>
+      <label><span>不一定，跟著感覺走</span></label>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:16px;">
+    <label>你希望訪談的氣氛比較像？ </label>
+    <div class="radio-group">
+      <label><span>深度、可以有情緒</span></label>
+      <label><span>輕鬆聊，偶爾深入</span></label>
+      <label><span>知識性為主</span></label>
+      <label><span>跟著凱皓帶就好</span></label>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:16px;">
+    <label>有沒有你「不想在節目裡碰」的方向？<span class="hint">（可複選）</span></label>
+    <div class="check-group">
+      <label><span>特定案例細節</span></label>
+      <label><span>家人或伴侶</span></label>
+      <label><span>宗教信仰</span></label>
+      <label><span>薪資或職涯</span></label>
+      <label><span>某段特定時期</span></label>
+      <label><span>暫時沒有限制</span></label>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:16px;">
+    <label>你對「公開露出」的意願？ </label>
+    <div class="radio-group">
+      <label><span>全名＋全臉都可以</span></label>
+      <label><span>職稱或化名即可</span></label>
+      <label><span>聲音，不露臉</span></label>
+      <label><span>待確認</span></label>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ⑧ 幫助生成深度問題 -->
+<div class="section">
+  <div class="section-label"><span class="section-number">8</span>再多告訴我一點</div>
+  <p style="font-size:12px; color:var(--muted); line-height:1.8; margin-bottom:18px;">這個區塊沒有對錯，直覺回答就好。這些答案會幫助凱皓問出真正屬於你的問題。</p>
+
+  <div class="field">
+    <label>在這份工作或這段經歷裡，你有沒有曾經「差點撐不住」的時刻？ </label>
+    <div class="radio-group">
+      <label><span>有，而且我記得很清楚</span></label>
+      <label><span>有過好幾次</span></label>
+      <label><span>有，但我消化掉了</span></label>
+      <label><span>說不上來，但有某種重量</span></label>
+      <label><span>沒有，我還好</span></label>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:18px;">
+    <label>在不同場合，你怎麼介紹自己的工作或身份？ </label>
+    <div class="radio-group">
+      <label><span>直接說，不多解釋</span></label>
+      <label><span>會說，但通常要補充很多</span></label>
+      <label><span>看對象，有時會換個說法</span></label>
+      <label><span>在某些場合我不太提</span></label>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:18px;">
+    <label>你相信死後有什麼嗎？ </label>
+    <div class="radio-group">
+      <label><span>相信有某種延續</span></label>
+      <label><span>傾向什麼都沒有</span></label>
+      <label><span>說不清楚，但有感覺</span></label>
+      <label><span>我不去想這件事</span></label>
+      <label><span>我的看法一直在變</span></label>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:18px;">
+    <label>最近這段時間，你的生命裡有沒有正在發生什麼變化？<span class="hint">（可不填）</span></label>
+    <div class="check-group">
+      <label><span>重要的失去或離別</span></label>
+      <label><span>工作或角色的轉換</span></label>
+      <label><span>健康或身體的改變</span></label>
+      <label><span>關係的重組</span></label>
+      <label><span>某個還在消化的事件</span></label>
+      <label><span>一個新的開始</span></label>
+      <label><span>暫時沒有特別的事</span></label>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:18px;">
+    <label>有沒有一個問題，是你最怕在訪談裡被問到的？<span class="hint">（可不填，但很有用）</span></label>
+    <input type="text" placeholder="例：「你後悔嗎？」「你怕死嗎？」——直覺填就好">
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ⑨ 最後一題 -->
+<div class="section">
+  <div class="section-label"><span class="section-number">9</span>最後一題</div>
+
+  <div class="field">
+    <label>用一句話完成這個句子：「如果你問我怎麼看待死亡，我會說⋯⋯」</label>
+    <input type="text" placeholder="不用想太久，直覺填就好">
+  </div>
+
+  <div class="field" style="margin-top:16px;">
+    <label>有沒有什麼補充想讓凱皓知道的？<span class="hint">（可不填）</span></label>
+    <input type="text" placeholder="例：採訪連結、最近在做的事、特別想提的細節…">
+  </div>
+</div>
+
+<div class="privacy-note">
+  📋 這份表格僅供主持人凱皓訪談前參考，不會在未經你同意的情況下對外公開或分享。
+</div>
+
+<div class="submit-row">
+  <button type="button" class="submit-btn" id="submitBtn">✉︎ &nbsp;送出資料表</button>
+  <span class="submit-note">送出後，凱皓會在錄製前與你確認訪談方向</span>
+</div>
+```
+
+  </form>
+
+  <div class="success-overlay" id="successOverlay">
+    <div class="success-icon">⚰️</div>
+    <div class="success-title">謝謝你願意聊點不吉利的</div>
+    <p class="success-text">
+      你的資料已成功送出。<br>
+      凱皓收到後會仔細閱讀，並在訪談前與你聯繫。<br><br>
+      期待在錄音室裡見到你。
+    </p>
+  </div>
+  </div>
+
+  <div class="footer">今天聊點不吉利的 · SoundOn · 主持人：凱皓</div>
+</div>
+
+<script>
+  // Radio groups
+  document.querySelectorAll('.radio-group').forEach(function(group) {
+    group.querySelectorAll('label').forEach(function(lbl) {
+      lbl.addEventListener('click', function() {
+        group.querySelectorAll('label').forEach(function(l) { l.classList.remove('selected'); });
+        lbl.classList.add('selected');
+      });
+    });
+  });
+
+  // Check groups
+  document.querySelectorAll('.check-group').forEach(function(group) {
+    group.querySelectorAll('label').forEach(function(lbl) {
+      lbl.addEventListener('click', function() {
+        lbl.classList.toggle('selected');
+      });
+    });
+  });
+
+  // Scale
+  function selectScale(groupId, val) {
+    document.getElementById(groupId).querySelectorAll('.scale-btn').forEach(function(b, i) {
+      b.classList.toggle('active', i < val);
+    });
+  }
+
+  // Repeater
+  function addRow(repeaterId, placeholder) {
+    var repeater = document.getElementById(repeaterId);
+    var row = document.createElement('div');
+    row.className = 'repeater-row';
+    row.innerHTML = '<input type="text" placeholder="' + placeholder + '"><button type="button" class="remove-row" onclick="removeRow(this)">x</button>';
+    repeater.appendChild(row);
+  }
+  function removeRow(btn) {
+    var repeater = btn.closest('.repeater');
+    if (repeater.querySelectorAll('.repeater-row').length > 1) {
+      btn.closest('.repeater-row').remove();
+    } else {
+      btn.closest('.repeater-row').querySelector('input').value = '';
+    }
+  }
+
+  // Submit via Web3Forms
+  document.getElementById('submitBtn').addEventListener('click', function() {
+    var btn = this;
+    btn.textContent = '送出中…';
+    btn.disabled = true;
+
+    var data = { access_key: '0607e41e-edb8-417c-a855-c4d06e2e26e2', subject: '【今天聊點不吉利的】新來賓資料表' };
+
+    // Text inputs
+    document.querySelectorAll('#guestForm input[type="text"]').forEach(function(inp) {
+      if (inp.name && inp.value.trim()) data[inp.name] = inp.value.trim();
+    });
+
+    // Radio groups
+    document.querySelectorAll('.radio-group').forEach(function(group) {
+      var field = group.closest('.field');
+      var labelEl = field ? field.querySelector('label') : null;
+      var key = labelEl ? labelEl.childNodes[0].textContent.trim().slice(0, 50) : '單選';
+      var sel = group.querySelector('label.selected');
+      if (sel) data[key] = sel.textContent.trim();
+    });
+
+    // Check groups
+    document.querySelectorAll('.check-group').forEach(function(group) {
+      var field = group.closest('.field');
+      var labelEl = field ? field.querySelector('label') : null;
+      var key = labelEl ? labelEl.childNodes[0].textContent.trim().slice(0, 50) : '複選';
+      var vals = [];
+      group.querySelectorAll('label.selected').forEach(function(l) { vals.push(l.textContent.trim()); });
+      if (vals.length) data[key] = vals.join('、');
+    });
+
+    // Scale
+    document.querySelectorAll('.scale-buttons').forEach(function(sb) {
+      var active = sb.querySelectorAll('.scale-btn.active');
+      if (active.length) {
+        var field = sb.closest('.field');
+        var labelEl = field ? field.querySelector('label') : null;
+        var key = labelEl ? labelEl.childNodes[0].textContent.trim().slice(0, 50) : '量表';
+        data[key] = active.length + ' / 5';
+      }
+    });
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(json) {
+      if (json.success) {
+        document.getElementById('guestForm').style.display = 'none';
+        document.getElementById('successOverlay').classList.add('show');
+        window.scrollTo(0, 0);
+      } else {
+        btn.textContent = '✉︎  送出資料表';
+        btn.disabled = false;
+        alert('送出失敗，請稍後再試。');
+      }
+    })
+    .catch(function() {
+      btn.textContent = '✉︎  送出資料表';
+      btn.disabled = false;
+      alert('網路異常，請稍後再試。');
+    });
+  });
+</script>
+
+</body>
+</html>
