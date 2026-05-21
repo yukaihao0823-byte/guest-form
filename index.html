@@ -758,7 +758,7 @@ async function submitAll() {
   try {
     // 1. Generate outline via Claude API
     const prompt = buildPrompt(d);
-    const apiRes = await fetch('https://api.anthropic.com/v1/messages', {
+    const apiRes = await fetch('https://bujili-proxy.yu-kaihao-0823.workers.dev', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
