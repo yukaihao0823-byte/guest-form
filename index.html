@@ -762,14 +762,14 @@ async function submitAll() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'gpt-4o',
         max_tokens: 4000,
         messages: [{ role: 'user', content: prompt }]
       })
     });
     if (!apiRes.ok) throw new Error('AI 生成失敗 ' + apiRes.status);
     const apiData = await apiRes.json();
-    const outline = apiData.content?.find(b => b.type==='text')?.text || '（生成失敗）';
+    const outline = apiData.choices?.[0]?.message?.content || '（生成失敗）';
 
     // 2. Send email via EmailJS
     // EmailJS template variables: {{guest_name}}, {{guest_job}}, {{outline_content}}, {{to_email}}
