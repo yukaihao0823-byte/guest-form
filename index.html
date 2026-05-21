@@ -741,10 +741,15 @@ async function generateOutline() {
     if (saved) d = JSON.parse(saved);
   } catch(e) {}
 
+  // If no localStorage data, use background field as the data source
   if (!d.name) {
-    const err = document.getElementById('host-err');
-    err.textContent = '找不到來賓資料。請確認來賓已填寫問卷，或重新整理頁面。';
-    err.classList.add('on'); return;
+    if (!background && !notes) {
+      const err = document.getElementById('host-err');
+      err.textContent = '請在「來賓背景資料」貼上來賓的問卷資料或背景資訊。';
+      err.classList.add('on'); return;
+    }
+    // Create minimal d from background text
+    d = { name: '來賓', job: '' };
   }
   document.getElementById('host-err').classList.remove('on');
 
