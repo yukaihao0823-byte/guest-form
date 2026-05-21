@@ -5,10 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>來賓資料表｜今天聊點不吉利的</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-
-<!-- ★ EmailJS SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
 <style>
 :root {
   --deep:    #fdf7f0;
@@ -25,209 +22,155 @@
   --red2:    #a05a36;
   --red3:    #b87040;
   --redglow: rgba(139,74,42,0.10);
+  --gold:    #a07828;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{
-  background: linear-gradient(160deg, #f9efe2 0%, #f0e2cc 45%, #e8d5b8 100%);
-  background-attachment: fixed;
-  color:var(--fog);
-  font-family:'Noto Serif TC',serif;min-height:100vh;
+  background:linear-gradient(160deg,#f9efe2 0%,#f0e2cc 45%,#e8d5b8 100%);
+  background-attachment:fixed;
+  color:var(--fog);font-family:'Noto Serif TC',serif;min-height:100vh;
 }
-
 .wrap{max-width:680px;margin:0 auto;padding:0 20px 80px;position:relative;z-index:1;}
 
-/* ── HEADER ── */
-.site-header{
-  text-align:center;padding:52px 20px 40px;
-  border-bottom:1px solid var(--border);position:relative;
-}
-.site-header::before{
-  content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
-  width:80px;height:1px;
-  background:linear-gradient(90deg,transparent,var(--red2),transparent);
-}
-.show-eyebrow{
-  font-family:'DM Mono',monospace;font-size:.6rem;
-  letter-spacing:.28em;color:var(--red2);text-transform:uppercase;
-  margin-bottom:14px;opacity:.8;
-}
-.show-title{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(1.5rem,5vw,2.2rem);
-  font-weight:300;color:var(--white);letter-spacing:.06em;line-height:1.25;
-}
+/* HEADER */
+.site-header{text-align:center;padding:52px 20px 40px;border-bottom:1px solid var(--border);position:relative;}
+.site-header::before{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--red2),transparent);}
+.show-eyebrow{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.28em;color:var(--red2);text-transform:uppercase;margin-bottom:14px;opacity:.8;}
+.show-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,5vw,2.2rem);font-weight:300;color:var(--white);letter-spacing:.06em;line-height:1.25;}
 .show-title em{font-style:italic;color:var(--red3);}
-.show-sub{
-  margin-top:10px;font-size:.72rem;color:var(--smoke);
-  letter-spacing:.08em;font-family:'DM Mono',monospace;line-height:1.7;
-}
+.show-sub{margin-top:10px;font-size:.72rem;color:var(--smoke);letter-spacing:.08em;font-family:'DM Mono',monospace;line-height:1.7;}
 
-/* ── PROGRESS ── */
+/* MODE BAR */
+.mode-bar{display:flex;gap:0;border:1px solid var(--border2);border-radius:8px;overflow:hidden;margin:28px auto 0;max-width:400px;}
+.mode-btn{flex:1;padding:10px 16px;background:var(--raised);border:none;cursor:pointer;color:var(--smoke);font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;transition:all .2s;border-right:1px solid var(--border2);}
+.mode-btn:last-child{border-right:none;}
+.mode-btn:hover{color:var(--fog);}
+.mode-btn.active{background:var(--redglow);color:var(--red2);}
+
+/* PROGRESS */
 .progress{display:flex;gap:3px;margin:28px 0 0;}
 .ps{flex:1;height:3px;border-radius:2px;background:var(--border2);transition:background .3s;}
 .ps.done{background:var(--red);}
 .ps.active{background:var(--red2);}
 
-/* ── SECTION MARKER ── */
-.sec-mark{
-  display:flex;align-items:center;gap:10px;
-  font-family:'DM Mono',monospace;font-size:.58rem;
-  letter-spacing:.22em;color:var(--red2);text-transform:uppercase;
-  margin-bottom:20px;opacity:.7;margin-top:32px;
-}
-.sec-mark::after{
-  content:'';flex:1;height:1px;
-  background:linear-gradient(90deg,var(--border2),transparent);
-}
+/* SECTION MARKER */
+.sec-mark{display:flex;align-items:center;gap:10px;font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.22em;color:var(--red2);text-transform:uppercase;margin-bottom:20px;opacity:.7;margin-top:32px;}
+.sec-mark::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border2),transparent);}
 
-/* ── CARD ── */
-.card{
-  background:rgba(255,251,245,0.85);border:1px solid var(--border);
-  border-radius:10px;padding:22px;margin-bottom:18px;position:relative;overflow:hidden;backdrop-filter:blur(4px);
-}
-.card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(139,74,42,.3),transparent);
-}
+/* CARD */
+.card{background:rgba(255,251,245,0.85);border:1px solid var(--border);border-radius:10px;padding:22px;margin-bottom:18px;position:relative;overflow:hidden;backdrop-filter:blur(4px);}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(139,74,42,.3),transparent);}
 .card-desc{font-size:.75rem;color:var(--smoke);line-height:1.75;margin-bottom:16px;}
 
-/* ── FORM ELEMENTS ── */
+/* FORM */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .full{grid-column:1/-1;}
 .field{display:flex;flex-direction:column;gap:5px;}
-.field label{
-  font-size:.62rem;color:var(--smoke);
-  letter-spacing:.12em;font-family:'DM Mono',monospace;text-transform:uppercase;
-}
-.field input,.field textarea,.field select{
-  background:#fffbf5;border:1px solid var(--border2);border-radius:6px;
-  padding:10px 12px;color:var(--fog);
-  font-family:'Noto Serif TC',serif;font-size:.84rem;
-  outline:none;transition:border-color .18s,box-shadow .18s;resize:none;
-}
-.field input:focus,.field textarea:focus,.field select:focus{
-  border-color:rgba(176,48,48,.55);box-shadow:0 0 0 3px rgba(176,48,48,.07);
-}
+.field label{font-size:.62rem;color:var(--smoke);letter-spacing:.12em;font-family:'DM Mono',monospace;text-transform:uppercase;}
+.field input,.field textarea,.field select{background:#fffbf5;border:1px solid var(--border2);border-radius:6px;padding:10px 12px;color:var(--fog);font-family:'Noto Serif TC',serif;font-size:.84rem;outline:none;transition:border-color .18s,box-shadow .18s;resize:none;}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:rgba(139,74,42,.55);box-shadow:0 0 0 3px rgba(139,74,42,.07);}
 .field textarea{min-height:82px;line-height:1.7;}
-.field select option{background:var(--raised);}
+.field select option{background:#fffbf5;}
 
-/* ── OPTIONS ── */
+/* HOST TEXTAREA */
+.host-field textarea{background:#fff8ee;border:1px solid var(--border);border-radius:6px;padding:12px;color:var(--fog);font-family:'Noto Serif TC',serif;font-size:.84rem;outline:none;resize:none;min-height:100px;line-height:1.7;width:100%;transition:border-color .18s;}
+.host-field textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(160,120,40,.08);}
+
+/* OPTIONS */
 .opts{display:flex;flex-wrap:wrap;gap:7px;margin-top:2px;}
-.opt{
-  display:flex;align-items:center;gap:6px;cursor:pointer;
-  padding:6px 12px;border:1px solid var(--border2);border-radius:5px;
-  background:#fffbf5;font-size:.75rem;color:var(--mist);
-  transition:all .18s;font-family:'Noto Serif TC',serif;
-}
+.opt{display:flex;align-items:center;gap:6px;cursor:pointer;padding:6px 12px;border:1px solid var(--border2);border-radius:5px;background:#fffbf5;font-size:.75rem;color:var(--mist);transition:all .18s;font-family:'Noto Serif TC',serif;}
 .opt:hover{border-color:var(--red);color:var(--fog);}
 .opt input{display:none;}
-.opt.on{background:var(--redglow);border-color:rgba(176,48,48,.45);color:var(--red3);}
+.opt.on{background:var(--redglow);border-color:rgba(139,74,42,.45);color:var(--red2);}
 
-/* range */
+/* RANGE */
 .rangew{display:flex;align-items:center;gap:10px;margin-top:4px;}
 .rl{font-size:.65rem;color:var(--smoke);font-family:'DM Mono',monospace;white-space:nowrap;}
-input[type=range]{
-  flex:1;-webkit-appearance:none;appearance:none;
-  height:3px;background:var(--border2);border-radius:2px;outline:none;
-}
-input[type=range]::-webkit-slider-thumb{
-  -webkit-appearance:none;width:14px;height:14px;
-  border-radius:50%;background:var(--red2);cursor:pointer;
-}
-.rv{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--red3);width:16px;text-align:center;}
+input[type=range]{flex:1;-webkit-appearance:none;appearance:none;height:3px;background:var(--border2);border-radius:2px;outline:none;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--red2);cursor:pointer;}
+.rv{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--red2);width:16px;text-align:center;}
 
-/* dynamic list */
-.dlist{display:flex;flex-direction:column;gap:6px;margin-top:8px;}
-.ditem{display:flex;gap:6px;align-items:center;}
-.ditem input{flex:1;}
-.addrow{display:flex;gap:8px;margin-top:8px;}
-.addrow input{flex:1;}
-.btnadd{
-  background:var(--raised);border:1px solid var(--border2);
-  color:var(--smoke);padding:8px 12px;border-radius:5px;
-  cursor:pointer;font-size:.75rem;transition:all .18s;white-space:nowrap;
-}
-.btnadd:hover{border-color:var(--red);color:var(--red2);}
-.btnrm{background:none;border:none;color:var(--ash);cursor:pointer;font-size:.9rem;padding:4px 6px;transition:color .15s;}
-.btnrm:hover{color:var(--red2);}
-
-/* ── NAV ── */
-.fnav{
-  display:flex;justify-content:space-between;align-items:center;
-  margin-top:28px;padding-top:18px;border-top:1px solid var(--border);
-  flex-wrap:wrap;gap:12px;
-}
+/* NAV */
+.fnav{display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding-top:18px;border-top:1px solid var(--border);flex-wrap:wrap;gap:12px;}
 .stepind{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--ash);letter-spacing:.1em;}
 
-/* ── BUTTONS ── */
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:7px;
-  border:none;cursor:pointer;border-radius:7px;
-  font-family:'Noto Serif TC',serif;letter-spacing:.06em;
-  transition:all .2s;font-size:.85rem;
-}
-.btn-main{
-  background:var(--red);color:#fff;padding:12px 28px;
-  box-shadow:0 4px 20px rgba(139,74,42,.22);
-}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:none;cursor:pointer;border-radius:7px;font-family:'Noto Serif TC',serif;letter-spacing:.06em;transition:all .2s;font-size:.85rem;}
+.btn-main{background:var(--red);color:#fff;padding:12px 28px;box-shadow:0 4px 20px rgba(139,74,42,.22);}
 .btn-main:hover{background:var(--red2);transform:translateY(-1px);}
 .btn-main:disabled{background:var(--ash);cursor:not-allowed;transform:none;box-shadow:none;}
-.btn-ghost{
-  background:var(--raised);border:1px solid var(--border2);
-  color:var(--mist);padding:10px 18px;
-}
-.btn-ghost:hover{border-color:var(--red);color:var(--red3);}
+.btn-ghost{background:var(--raised);border:1px solid var(--border2);color:var(--mist);padding:10px 18px;}
+.btn-ghost:hover{border-color:var(--red);color:var(--red2);}
+.btn-gold{background:var(--gold);color:#fff;padding:12px 28px;border-radius:7px;border:none;cursor:pointer;font-family:'Noto Serif TC',serif;font-size:.85rem;letter-spacing:.06em;box-shadow:0 4px 20px rgba(160,120,40,.25);transition:all .2s;}
+.btn-gold:hover{background:#b88a30;transform:translateY(-1px);}
+.btn-gold:disabled{background:var(--ash);cursor:not-allowed;transform:none;box-shadow:none;}
 
-/* ── ERROR ── */
-.errbox{
-  background:rgba(139,74,42,.08);border:1px solid rgba(139,74,42,.25);
-  border-radius:7px;padding:12px 15px;
-  font-size:.77rem;color:var(--red2);display:none;
-  margin-top:12px;line-height:1.6;
-}
+/* ERROR */
+.errbox{background:rgba(139,74,42,.08);border:1px solid rgba(139,74,42,.25);border-radius:7px;padding:12px 15px;font-size:.77rem;color:var(--red2);display:none;margin-top:12px;line-height:1.6;}
 .errbox.on{display:block;}
 
-/* ── LOADING / PROCESSING ── */
+/* LOADING */
 #screen-processing{display:none;text-align:center;padding:70px 20px;background:transparent;}
 #screen-processing.on{display:block;}
-.spin{
-  font-size:2rem;display:block;margin-bottom:20px;
-  animation:rot 3s linear infinite;color:var(--red2);opacity:.8;
-}
+.spin{font-size:2rem;display:block;margin-bottom:20px;animation:rot 3s linear infinite;color:var(--red2);opacity:.8;}
 @keyframes rot{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-.proc-msg{
-  font-family:'DM Mono',monospace;font-size:.72rem;
-  color:var(--smoke);letter-spacing:.1em;margin-bottom:18px;
-}
+.proc-msg{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--smoke);letter-spacing:.1em;margin-bottom:16px;}
 .proc-steps{list-style:none;display:inline-block;text-align:left;}
-.proc-steps li{
-  font-family:'DM Mono',monospace;font-size:.68rem;
-  color:var(--smoke);padding:3px 0;letter-spacing:.05em;transition:color .3s;
-}
-.proc-steps li.on{color:var(--white);}
-.proc-steps li.ok{color:var(--red3);}
+.proc-steps li{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--smoke);padding:3px 0;letter-spacing:.05em;transition:color .3s;}
+.proc-steps li.on{color:var(--fog);}
+.proc-steps li.ok{color:var(--red2);}
 .proc-steps li.ok::before{content:'✓ ';}
 .proc-steps li.on::before{content:'→ ';}
 
-/* ── THANK YOU ── */
+/* THANK YOU */
 #screen-done{display:none;text-align:center;padding:70px 20px;}
 #screen-done.on{display:block;}
 .ty-icon{font-size:2.2rem;display:block;margin-bottom:18px;}
-.ty-title{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.4rem;color:var(--white);font-weight:300;margin-bottom:10px;
-}
+.ty-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--white);font-weight:300;margin-bottom:10px;}
 .ty-body{font-size:.8rem;color:var(--smoke);line-height:1.9;}
 
-/* ── FORM SCREENS ── */
+/* STEP PANES */
 .step-pane{display:none;}
 .step-pane.on{display:block;}
+
+/* HOST PANEL */
+#view-host{display:none;}
+#view-host.on{display:block;}
+.host-banner{background:rgba(160,120,40,.08);border:1px solid rgba(160,120,40,.25);border-radius:8px;padding:14px 16px;margin-bottom:20px;font-size:.78rem;color:var(--gold);line-height:1.7;}
+.host-banner strong{color:var(--white);}
+.data-preview{background:#fffbf5;border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:18px;font-size:.78rem;color:var(--fog);line-height:1.8;max-height:280px;overflow-y:auto;}
+.data-preview h4{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.15em;color:var(--red2);text-transform:uppercase;margin-bottom:10px;}
+.data-row{padding:5px 0;border-bottom:1px solid var(--border2);}
+.data-row:last-child{border-bottom:none;}
+.data-label{color:var(--smoke);font-size:.7rem;font-family:'DM Mono',monospace;}
+.data-val{color:var(--fog);margin-left:6px;}
+
+/* HOST OUTLINE OUTPUT */
+.outline-topbar{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px;flex-wrap:wrap;gap:10px;}
+.outline-meta{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--smoke);}
+.outline-meta strong{color:var(--red2);}
+.btn-copy,.btn-print,.btn-back2{background:var(--raised);border:1px solid var(--border2);color:var(--mist);padding:7px 14px;border-radius:5px;cursor:pointer;font-size:.7rem;font-family:'DM Mono',monospace;transition:all .18s;letter-spacing:.06em;}
+.btn-copy:hover{border-color:#70c098;color:#70c098;}
+.btn-print:hover{border-color:var(--gold);color:var(--gold);}
+.btn-back2:hover{border-color:var(--red);color:var(--red2);}
+.outline-body{font-size:.82rem;line-height:1.85;color:var(--fog);white-space:pre-wrap;background:#fffbf5;border:1px solid var(--border);border-radius:8px;padding:20px;}
+
+/* PASSWORD */
+.pw-wrap{text-align:center;padding:60px 20px;}
+.pw-wrap h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--white);margin-bottom:16px;}
+.pw-input{background:#fffbf5;border:1px solid var(--border2);border-radius:6px;padding:10px 14px;font-family:'DM Mono',monospace;font-size:.85rem;color:var(--fog);outline:none;width:200px;text-align:center;letter-spacing:.2em;}
+.pw-input:focus{border-color:var(--gold);}
 
 @media(max-width:560px){
   .g2{grid-template-columns:1fr;}
   .fnav{flex-direction:column;align-items:stretch;}
-  .fnav .stepind{text-align:center;}
+  .mode-bar{max-width:100%;}
+}
+@media print{
+  .site-header,.mode-bar,.fnav,.outline-topbar .btn-copy,.outline-topbar .btn-print,.outline-topbar .btn-back2{display:none!important;}
+  body{background:#fff;}
+  .outline-body{border:none;padding:0;}
 }
 </style>
 </head>
@@ -236,466 +179,536 @@ input[type=range]::-webkit-slider-thumb{
 <header class="site-header">
   <div class="show-eyebrow">今天聊點不吉利的 · Podcast</div>
   <h1 class="show-title">在錄音室見面之前<br><em>先讓我認識你</em></h1>
-  <p class="show-sub">填寫大約 8–10 分鐘。這份資料只有主持人凱皓看。<br>填完後訪綱會自動生成，你不需要再做任何事。</p>
+  <p class="show-sub">填寫大約 8–10 分鐘。這份資料只有主持人凱皓看。</p>
+  <div class="mode-bar">
+    <button class="mode-btn active" onclick="setMode('guest')" id="mbtn-guest">來賓填寫問卷</button>
+    <button class="mode-btn" onclick="setMode('host')" id="mbtn-host">凱皓專區</button>
+  </div>
 </header>
 
+<!-- ════════ GUEST VIEW ════════ -->
+<div id="view-guest">
 <div class="wrap">
 
-  <!-- Progress -->
   <div class="progress" id="prog">
-    <div class="ps active" id="ps1"></div>
-    <div class="ps" id="ps2"></div>
-    <div class="ps" id="ps3"></div>
-    <div class="ps" id="ps4"></div>
-    <div class="ps" id="ps5"></div>
-    <div class="ps" id="ps6"></div>
-    <div class="ps" id="ps7"></div>
-    <div class="ps" id="ps8"></div>
+    <div class="ps active" id="ps1"></div><div class="ps" id="ps2"></div>
+    <div class="ps" id="ps3"></div><div class="ps" id="ps4"></div>
+    <div class="ps" id="ps5"></div><div class="ps" id="ps6"></div>
+    <div class="ps" id="ps7"></div><div class="ps" id="ps8"></div>
   </div>
 
-  <!-- ══════════ STEP 1 基本資訊 ══════════ -->
+  <!-- STEP 1 -->
   <div id="s1" class="step-pane on">
     <div class="sec-mark">01 · 基本資訊</div>
     <div class="card">
       <div class="card-desc">這份資料只有主持人凱皓看，幫助他為你設計更到位的問題。</div>
       <div class="g2">
-        <div class="field">
-          <label>稱呼 / 姓名</label>
-          <input id="f-name" placeholder="你希望節目怎麼稱呼你">
-        </div>
-        <div class="field">
-          <label>聯絡方式</label>
-          <input id="f-contact" placeholder="IG / Line / Email 擇一">
-        </div>
-        <div class="field">
-          <label>職業 / 身分</label>
-          <input id="f-job" placeholder="例：殯葬師、精神科醫師、創業者…">
-        </div>
-        <div class="field">
-          <label>從業年資</label>
-          <div class="opts" id="og-exp">
-            <label class="opt"><input type="radio" name="exp" value="1年以下">1 年以下</label>
-            <label class="opt"><input type="radio" name="exp" value="1–5年">1–5 年</label>
-            <label class="opt"><input type="radio" name="exp" value="5–10年">5–10 年</label>
-            <label class="opt"><input type="radio" name="exp" value="10年以上">10 年以上</label>
-          </div>
+        <div class="field"><label>稱呼 / 姓名</label><input id="f-name" placeholder="你希望節目怎麼稱呼你"></div>
+        <div class="field"><label>聯絡方式</label><input id="f-contact" placeholder="IG / Line / Email 擇一"></div>
+        <div class="field"><label>職業 / 身分</label><input id="f-job" placeholder="例：殯葬師、精神科醫師、創業者…"></div>
+        <div class="field"><label>從業年資</label>
+          <div class="opts"><label class="opt"><input type="radio" name="exp" value="1年以下">1 年以下</label><label class="opt"><input type="radio" name="exp" value="1–5年">1–5 年</label><label class="opt"><input type="radio" name="exp" value="5–10年">5–10 年</label><label class="opt"><input type="radio" name="exp" value="10年以上">10 年以上</label></div>
         </div>
       </div>
     </div>
-    <div class="fnav">
-      <span class="stepind">1 / 8</span>
-      <button class="btn btn-main" onclick="go(1,2)">繼續 →</button>
-    </div>
+    <div class="fnav"><span class="stepind">1 / 8</span><button class="btn btn-main" onclick="go(1,2)">繼續 →</button></div>
   </div>
 
-  <!-- ══════════ STEP 2 家庭背景 ══════════ -->
+  <!-- STEP 2 -->
   <div id="s2" class="step-pane">
     <div class="sec-mark">02 · 家庭背景</div>
     <div class="card">
       <div class="g2">
-        <div class="field">
-          <label>在家中的排行</label>
-          <div class="opts"><label class="opt"><input type="radio" name="rank" value="獨生子女">獨生子女</label><label class="opt"><input type="radio" name="rank" value="老大">老大</label><label class="opt"><input type="radio" name="rank" value="中間">中間</label><label class="opt"><input type="radio" name="rank" value="老么">老么</label></div>
-        </div>
-        <div class="field">
-          <label>成長環境</label>
-          <div class="opts"><label class="opt"><input type="radio" name="fam" value="雙親家庭">雙親家庭</label><label class="opt"><input type="radio" name="fam" value="單親家庭">單親家庭</label><label class="opt"><input type="radio" name="fam" value="隔代教養">隔代教養</label><label class="opt"><input type="radio" name="fam" value="大家庭同住">大家庭</label><label class="opt"><input type="radio" name="fam" value="其他">其他</label></div>
-        </div>
-        <div class="field">
-          <label>家人對你走這個行業的態度</label>
-          <div class="opts"><label class="opt"><input type="radio" name="famatt" value="非常支持">非常支持</label><label class="opt"><input type="radio" name="famatt" value="接受但有疑慮">接受，但有疑慮</label><label class="opt"><input type="radio" name="famatt" value="沉默沒有表態">沉默，沒表態</label><label class="opt"><input type="radio" name="famatt" value="明確反對過">明確反對過</label><label class="opt"><input type="radio" name="famatt" value="家人不知道">家人不知道</label></div>
-        </div>
-        <div class="field">
-          <label>家裡怎麼看待「死亡」這個話題</label>
-          <div class="opts"><label class="opt"><input type="radio" name="deathtalk" value="非常避諱這是禁忌">非常避諱，禁忌</label><label class="opt"><input type="radio" name="deathtalk" value="有點避諱">有點避諱</label><label class="opt"><input type="radio" name="deathtalk" value="普通沒特別在意">普通</label><label class="opt"><input type="radio" name="deathtalk" value="相對開放會討論">相對開放</label></div>
-        </div>
-        <div class="field full">
-          <label>家族裡影響你最深的人，以及他的影響（可不填）</label>
-          <textarea id="f-familyfig" placeholder="例：阿嬤讓我第一次理解死亡是什麼…"></textarea>
-        </div>
+        <div class="field"><label>在家中的排行</label><div class="opts"><label class="opt"><input type="radio" name="rank" value="獨生子女">獨生子女</label><label class="opt"><input type="radio" name="rank" value="老大">老大</label><label class="opt"><input type="radio" name="rank" value="中間">中間</label><label class="opt"><input type="radio" name="rank" value="老么">老么</label></div></div>
+        <div class="field"><label>成長環境</label><div class="opts"><label class="opt"><input type="radio" name="fam" value="雙親家庭">雙親家庭</label><label class="opt"><input type="radio" name="fam" value="單親家庭">單親家庭</label><label class="opt"><input type="radio" name="fam" value="隔代教養">隔代教養</label><label class="opt"><input type="radio" name="fam" value="大家庭同住">大家庭</label><label class="opt"><input type="radio" name="fam" value="其他">其他</label></div></div>
+        <div class="field"><label>家人對你走這個行業的態度</label><div class="opts"><label class="opt"><input type="radio" name="famatt" value="非常支持">非常支持</label><label class="opt"><input type="radio" name="famatt" value="接受但有疑慮">接受，但有疑慮</label><label class="opt"><input type="radio" name="famatt" value="沉默沒有表態">沉默，沒表態</label><label class="opt"><input type="radio" name="famatt" value="明確反對過">明確反對過</label><label class="opt"><input type="radio" name="famatt" value="家人不知道">家人不知道</label></div></div>
+        <div class="field"><label>家裡怎麼看待「死亡」這個話題</label><div class="opts"><label class="opt"><input type="radio" name="deathtalk" value="非常避諱這是禁忌">非常避諱，禁忌</label><label class="opt"><input type="radio" name="deathtalk" value="有點避諱">有點避諱</label><label class="opt"><input type="radio" name="deathtalk" value="普通沒特別在意">普通</label><label class="opt"><input type="radio" name="deathtalk" value="相對開放會討論">相對開放</label></div></div>
+        <div class="field full"><label>家族裡影響你最深的人，以及他的影響（可不填）</label><textarea id="f-familyfig" placeholder="例：阿嬤讓我第一次理解死亡是什麼…"></textarea></div>
       </div>
     </div>
-    <div class="fnav">
-      <button class="btn btn-ghost" onclick="go(2,1)">← 上一步</button>
-      <span class="stepind">2 / 8</span>
-      <button class="btn btn-main" onclick="go(2,3)">繼續 →</button>
-    </div>
+    <div class="fnav"><button class="btn btn-ghost" onclick="go(2,1)">← 上一步</button><span class="stepind">2 / 8</span><button class="btn btn-main" onclick="go(2,3)">繼續 →</button></div>
   </div>
 
-  <!-- ══════════ STEP 3 你與死亡的距離 ══════════ -->
+  <!-- STEP 3 -->
   <div id="s3" class="step-pane">
     <div class="sec-mark">03 · 你與死亡的距離</div>
     <div class="card">
       <div class="g2">
-        <div class="field">
-          <label>死亡在你的工作或生活裡，大概是什麼頻率</label>
-          <div class="opts"><label class="opt"><input type="radio" name="dfreq" value="幾乎每天">幾乎每天</label><label class="opt"><input type="radio" name="dfreq" value="每週幾次">每週幾次</label><label class="opt"><input type="radio" name="dfreq" value="偶爾才會">偶爾才會</label><label class="opt"><input type="radio" name="dfreq" value="很少但很深刻">很少，但很深刻</label><label class="opt"><input type="radio" name="dfreq" value="不在工作裡在生命裡">不在工作，在生命裡</label></div>
-        </div>
-        <div class="field">
-          <label>你與死亡的連結，主要透過（可複選）</label>
-          <div class="opts"><label class="opt"><input type="checkbox" name="dconn" value="職業直接接觸">職業直接接觸</label><label class="opt"><input type="checkbox" name="dconn" value="親人或朋友的離開">親人或朋友的離開</label><label class="opt"><input type="checkbox" name="dconn" value="自身生病或意外">自身生病或意外</label><label class="opt"><input type="checkbox" name="dconn" value="長期陪伴臨終者">陪伴臨終者</label><label class="opt"><input type="checkbox" name="dconn" value="創作或研究">創作或研究</label><label class="opt"><input type="checkbox" name="dconn" value="信仰或靈性探索">信仰或靈性</label></div>
-        </div>
-        <div class="field full">
-          <label>你第一次「真正意識到死亡」是幾歲？大概是什麼情況？</label>
-          <textarea id="f-firstdeath" placeholder="大約幾歲，當時發生了什麼…"></textarea>
-        </div>
+        <div class="field"><label>死亡在你的工作或生活裡，大概是什麼頻率</label><div class="opts"><label class="opt"><input type="radio" name="dfreq" value="幾乎每天">幾乎每天</label><label class="opt"><input type="radio" name="dfreq" value="每週幾次">每週幾次</label><label class="opt"><input type="radio" name="dfreq" value="偶爾才會">偶爾才會</label><label class="opt"><input type="radio" name="dfreq" value="很少但很深刻">很少，但很深刻</label><label class="opt"><input type="radio" name="dfreq" value="不在工作裡在生命裡">不在工作，在生命裡</label></div></div>
+        <div class="field"><label>你與死亡的連結，主要透過（可複選）</label><div class="opts"><label class="opt"><input type="checkbox" name="dconn" value="職業直接接觸">職業直接接觸</label><label class="opt"><input type="checkbox" name="dconn" value="親人或朋友的離開">親人或朋友的離開</label><label class="opt"><input type="checkbox" name="dconn" value="自身生病或意外">自身生病或意外</label><label class="opt"><input type="checkbox" name="dconn" value="長期陪伴臨終者">陪伴臨終者</label><label class="opt"><input type="checkbox" name="dconn" value="創作或研究">創作或研究</label><label class="opt"><input type="checkbox" name="dconn" value="信仰或靈性探索">信仰或靈性</label></div></div>
+        <div class="field full"><label>你第一次「真正意識到死亡」是幾歲？大概是什麼情況？</label><textarea id="f-firstdeath" placeholder="大約幾歲，當時發生了什麼…"></textarea></div>
       </div>
     </div>
-    <div class="fnav">
-      <button class="btn btn-ghost" onclick="go(3,2)">← 上一步</button>
-      <span class="stepind">3 / 8</span>
-      <button class="btn btn-main" onclick="go(3,4)">繼續 →</button>
-    </div>
+    <div class="fnav"><button class="btn btn-ghost" onclick="go(3,2)">← 上一步</button><span class="stepind">3 / 8</span><button class="btn btn-main" onclick="go(3,4)">繼續 →</button></div>
   </div>
 
-  <!-- ══════════ STEP 4 走進這條路的故事 ══════════ -->
+  <!-- STEP 4 -->
   <div id="s4" class="step-pane">
     <div class="sec-mark">04 · 走進這條路的故事</div>
     <div class="card">
       <div class="g2">
-        <div class="field">
-          <label>你走進這個行業，比較像是</label>
-          <div class="opts"><label class="opt"><input type="radio" name="howcame" value="從小就有的方向">從小就有的方向</label><label class="opt"><input type="radio" name="howcame" value="人生轉折後的選擇">人生轉折後的選擇</label><label class="opt"><input type="radio" name="howcame" value="被一個人或事件帶進來">被人或事件帶進來</label><label class="opt"><input type="radio" name="howcame" value="陰錯陽差說不清楚">陰錯陽差</label></div>
-        </div>
-        <div class="field">
-          <label>你最常被人問到的問題是什麼</label>
-          <input id="f-faqask" placeholder="例：「你不害怕嗎？」">
-        </div>
-        <div class="field full">
-          <label>如果要說一個「關鍵轉折」，大概在幾歲、發生了什麼？</label>
-          <textarea id="f-turning" placeholder="大約幾歲，那件事是什麼…"></textarea>
-        </div>
-        <div class="field full">
-          <label>你覺得最難回答的問題類型（可複選）</label>
-          <div class="opts"><label class="opt"><input type="checkbox" name="hardq" value="你不害怕嗎">「你不害怕嗎？」</label><label class="opt"><input type="checkbox" name="hardq" value="你這樣會不會很難過">「你這樣會不會很難過？」</label><label class="opt"><input type="checkbox" name="hardq" value="為什麼要做這行">「為什麼要做這行？」</label><label class="opt"><input type="checkbox" name="hardq" value="你自己怎麼看待死亡">「你自己怎麼看待死亡？」</label></div>
-        </div>
-        <div class="field full">
-          <label>走進這行之後，你有沒有想過離開？</label>
-          <div class="opts"><label class="opt"><input type="radio" name="wantleave" value="有，而且不只一次">有，而且不只一次</label><label class="opt"><input type="radio" name="wantleave" value="有過，但很短暫">有過，但很短暫</label><label class="opt"><input type="radio" name="wantleave" value="偶爾會這樣想">偶爾會這樣想</label><label class="opt"><input type="radio" name="wantleave" value="沒有，從來沒動搖過">沒有，從來沒動搖過</label><label class="opt"><input type="radio" name="wantleave" value="我已經離開過又回來了">我已經離開過又回來了</label></div>
-        </div>
+        <div class="field"><label>你走進這個行業，比較像是</label><div class="opts"><label class="opt"><input type="radio" name="howcame" value="從小就有的方向">從小就有的方向</label><label class="opt"><input type="radio" name="howcame" value="人生轉折後的選擇">人生轉折後的選擇</label><label class="opt"><input type="radio" name="howcame" value="被一個人或事件帶進來">被人或事件帶進來</label><label class="opt"><input type="radio" name="howcame" value="陰錯陽差說不清楚">陰錯陽差</label></div></div>
+        <div class="field"><label>你最常被人問到的問題是什麼</label><input id="f-faqask" placeholder="例：「你不害怕嗎？」"></div>
+        <div class="field full"><label>如果要說一個「關鍵轉折」，大概在幾歲、發生了什麼？</label><textarea id="f-turning" placeholder="大約幾歲，那件事是什麼…"></textarea></div>
+        <div class="field full"><label>走進這行之後，你有沒有想過離開？</label><div class="opts"><label class="opt"><input type="radio" name="wantleave" value="有，而且不只一次">有，而且不只一次</label><label class="opt"><input type="radio" name="wantleave" value="有過，但很短暫">有過，但很短暫</label><label class="opt"><input type="radio" name="wantleave" value="偶爾會這樣想">偶爾會這樣想</label><label class="opt"><input type="radio" name="wantleave" value="沒有，從來沒動搖過">沒有，從來沒動搖過</label><label class="opt"><input type="radio" name="wantleave" value="我已經離開過又回來了">我已經離開過又回來了</label></div></div>
+        <div class="field full"><label>你覺得最難回答的問題類型（可複選）</label><div class="opts"><label class="opt"><input type="checkbox" name="hardq" value="你不害怕嗎">「你不害怕嗎？」</label><label class="opt"><input type="checkbox" name="hardq" value="你這樣會不會很難過">「你這樣會不會很難過？」</label><label class="opt"><input type="checkbox" name="hardq" value="為什麼要做這行">「為什麼要做這行？」</label><label class="opt"><input type="checkbox" name="hardq" value="你自己怎麼看待死亡">「你自己怎麼看待死亡？」</label></div></div>
       </div>
     </div>
-    <div class="fnav">
-      <button class="btn btn-ghost" onclick="go(4,3)">← 上一步</button>
-      <span class="stepind">4 / 8</span>
-      <button class="btn btn-main" onclick="go(4,5)">繼續 →</button>
-    </div>
+    <div class="fnav"><button class="btn btn-ghost" onclick="go(4,3)">← 上一步</button><span class="stepind">4 / 8</span><button class="btn btn-main" onclick="go(4,5)">繼續 →</button></div>
   </div>
 
-  <!-- ══════════ STEP 5 特殊經歷與成就 ══════════ -->
+  <!-- STEP 5 -->
   <div id="s5" class="step-pane">
     <div class="sec-mark">05 · 特殊經歷與成就</div>
     <div class="card">
-      <div class="field" style="margin-bottom:16px">
-        <label>有沒有什麼作品、報導或成就，希望凱皓在節目裡提到？（可不填）</label>
-        <textarea id="f-highlights" placeholder="例：出版過《與死亡共舞》、曾上過公視紀錄片、2023 金鐘獎…"></textarea>
-      </div>
-      <div class="field" style="margin-bottom:16px">
-        <label>生命或職涯裡特別難忘的事件（可複選）</label>
-        <div class="opts"><label class="opt"><input type="checkbox" name="events" value="重大意外或疾病">重大意外或疾病</label><label class="opt"><input type="checkbox" name="events" value="至親離世">至親離世</label><label class="opt"><input type="checkbox" name="events" value="職涯重大挫折">職涯重大挫折</label><label class="opt"><input type="checkbox" name="events" value="改變人生的相遇">改變人生的相遇</label><label class="opt"><input type="checkbox" name="events" value="出走或移居">出走或移居</label><label class="opt"><input type="checkbox" name="events" value="創業或轉行">創業或轉行</label><label class="opt"><input type="checkbox" name="events" value="某個難以言說的案例">難以言說的案例</label></div>
-      </div>
-      <div class="field">
-        <label>有沒有「很少對外說，但其實很想讓人知道」的事</label>
-        <div class="opts"><label class="opt"><input type="radio" name="secret" value="有而且願意在節目裡聊">有，我願意聊</label><label class="opt"><input type="radio" name="secret" value="有但要看情況">有，但要看情況</label><label class="opt"><input type="radio" name="secret" value="沒有我都說得很開">沒有，我說得很開</label><label class="opt"><input type="radio" name="secret" value="有但暫時不想提">有，但這次不想提</label></div>
-      </div>
+      <div class="field" style="margin-bottom:16px"><label>有沒有什麼作品、報導或成就，希望凱皓在節目裡提到？（可不填）</label><textarea id="f-highlights" placeholder="例：出版過《與死亡共舞》、曾上過公視紀錄片、2023 金鐘獎…"></textarea></div>
+      <div class="field" style="margin-bottom:16px"><label>生命或職涯裡特別難忘的事件（可複選）</label><div class="opts"><label class="opt"><input type="checkbox" name="events" value="重大意外或疾病">重大意外或疾病</label><label class="opt"><input type="checkbox" name="events" value="至親離世">至親離世</label><label class="opt"><input type="checkbox" name="events" value="職涯重大挫折">職涯重大挫折</label><label class="opt"><input type="checkbox" name="events" value="改變人生的相遇">改變人生的相遇</label><label class="opt"><input type="checkbox" name="events" value="出走或移居">出走或移居</label><label class="opt"><input type="checkbox" name="events" value="創業或轉行">創業或轉行</label><label class="opt"><input type="checkbox" name="events" value="某個難以言說的案例">難以言說的案例</label></div></div>
+      <div class="field"><label>有沒有「很少對外說，但其實很想讓人知道」的事</label><div class="opts"><label class="opt"><input type="radio" name="secret" value="有而且願意在節目裡聊">有，我願意聊</label><label class="opt"><input type="radio" name="secret" value="有但要看情況">有，但要看情況</label><label class="opt"><input type="radio" name="secret" value="沒有我都說得很開">沒有，我說得很開</label><label class="opt"><input type="radio" name="secret" value="有但暫時不想提">有，但這次不想提</label></div></div>
     </div>
-    <div class="fnav">
-      <button class="btn btn-ghost" onclick="go(5,4)">← 上一步</button>
-      <span class="stepind">5 / 8</span>
-      <button class="btn btn-main" onclick="go(5,6)">繼續 →</button>
-    </div>
+    <div class="fnav"><button class="btn btn-ghost" onclick="go(5,4)">← 上一步</button><span class="stepind">5 / 8</span><button class="btn btn-main" onclick="go(5,6)">繼續 →</button></div>
   </div>
 
-  <!-- ══════════ STEP 6 你現在的狀態 ══════════ -->
+  <!-- STEP 6 -->
   <div id="s6" class="step-pane">
     <div class="sec-mark">06 · 你現在的狀態</div>
     <div class="card">
       <div class="g2">
-        <div class="field">
-          <label>現在走在這條路上，心情比較像是</label>
-          <div class="opts"><label class="opt"><input type="radio" name="mood" value="仍然充滿熱情">仍然充滿熱情</label><label class="opt"><input type="radio" name="mood" value="平穩找到了節奏">平穩，找到節奏</label><label class="opt"><input type="radio" name="mood" value="有點疲憊但還在">有點疲憊，但還在</label><label class="opt"><input type="radio" name="mood" value="正在重新思考">正在重新思考</label><label class="opt"><input type="radio" name="mood" value="已轉換帶著過去走">已轉換，帶著過去走</label></div>
-        </div>
-        <div class="field">
-          <label>最近生命裡有沒有正在發生的變化（可複選）</label>
-          <div class="opts"><label class="opt"><input type="checkbox" name="change" value="重要的失去或離別">重要的失去或離別</label><label class="opt"><input type="checkbox" name="change" value="工作或角色的轉換">工作或角色的轉換</label><label class="opt"><input type="checkbox" name="change" value="健康或身體的改變">健康或身體改變</label><label class="opt"><input type="checkbox" name="change" value="關係的重組">關係的重組</label><label class="opt"><input type="checkbox" name="change" value="某個還在消化的事件">還在消化的事</label><label class="opt"><input type="checkbox" name="change" value="一個新的開始">一個新的開始</label><label class="opt"><input type="checkbox" name="change" value="暫時沒有">暫時沒有</label></div>
-        </div>
-        <div class="field">
-          <label>你對「公開談論這些事」的意願</label>
-          <div class="rangew">
-            <span class="rl">很保留</span>
-            <input type="range" id="r-open" min="1" max="5" value="3" oninput="document.getElementById('rv-o').textContent=this.value">
-            <span class="rv" id="rv-o">3</span>
-            <span class="rl">很願意說</span>
-          </div>
-        </div>
+        <div class="field"><label>現在走在這條路上，心情比較像是</label><div class="opts"><label class="opt"><input type="radio" name="mood" value="仍然充滿熱情">仍然充滿熱情</label><label class="opt"><input type="radio" name="mood" value="平穩找到了節奏">平穩，找到節奏</label><label class="opt"><input type="radio" name="mood" value="有點疲憊但還在">有點疲憊，但還在</label><label class="opt"><input type="radio" name="mood" value="正在重新思考">正在重新思考</label><label class="opt"><input type="radio" name="mood" value="已轉換帶著過去走">已轉換，帶著過去走</label></div></div>
+        <div class="field"><label>最近生命裡有沒有正在發生的變化（可複選）</label><div class="opts"><label class="opt"><input type="checkbox" name="change" value="重要的失去或離別">重要的失去或離別</label><label class="opt"><input type="checkbox" name="change" value="工作或角色的轉換">工作或角色的轉換</label><label class="opt"><input type="checkbox" name="change" value="健康或身體的改變">健康或身體改變</label><label class="opt"><input type="checkbox" name="change" value="關係的重組">關係的重組</label><label class="opt"><input type="checkbox" name="change" value="某個還在消化的事件">還在消化的事</label><label class="opt"><input type="checkbox" name="change" value="一個新的開始">一個新的開始</label><label class="opt"><input type="checkbox" name="change" value="暫時沒有">暫時沒有</label></div></div>
+        <div class="field"><label>你對「公開談論這些事」的意願</label><div class="rangew"><span class="rl">很保留</span><input type="range" id="r-open" min="1" max="5" value="3" oninput="document.getElementById('rv-o').textContent=this.value"><span class="rv" id="rv-o">3</span><span class="rl">很願意說</span></div></div>
       </div>
     </div>
-    <div class="fnav">
-      <button class="btn btn-ghost" onclick="go(6,5)">← 上一步</button>
-      <span class="stepind">6 / 8</span>
-      <button class="btn btn-main" onclick="go(6,7)">繼續 →</button>
-    </div>
+    <div class="fnav"><button class="btn btn-ghost" onclick="go(6,5)">← 上一步</button><span class="stepind">6 / 8</span><button class="btn btn-main" onclick="go(6,7)">繼續 →</button></div>
   </div>
 
-  <!-- ══════════ STEP 7 訪談方向 ══════════ -->
+  <!-- STEP 7 -->
   <div id="s7" class="step-pane">
     <div class="sec-mark">07 · 訪談方向</div>
     <div class="card">
       <div class="g2">
-        <div class="field">
-          <label>你希望聽眾帶走的是（最多選 2 個）</label>
-          <div class="opts"><label class="opt"><input type="checkbox" name="takeaway" value="對這個職業的真實理解">對這個職業的真實理解</label><label class="opt"><input type="checkbox" name="takeaway" value="一個讓人反思的故事">一個讓人反思的故事</label><label class="opt"><input type="checkbox" name="takeaway" value="關於死亡的不同視角">關於死亡的不同視角</label><label class="opt"><input type="checkbox" name="takeaway" value="你這個人本身">你這個人本身</label><label class="opt"><input type="checkbox" name="takeaway" value="一個可以行動的觀念">一個可以行動的觀念</label><label class="opt"><input type="checkbox" name="takeaway" value="跟著感覺走">跟著感覺走</label></div>
-        </div>
-        <div class="field">
-          <label>你希望訪談的氣氛比較像</label>
-          <div class="opts"><label class="opt"><input type="radio" name="vibe" value="深度可以有情緒">深度、可以有情緒</label><label class="opt"><input type="radio" name="vibe" value="輕鬆聊偶爾深入">輕鬆聊，偶爾深入</label><label class="opt"><input type="radio" name="vibe" value="知識性為主">知識性為主</label><label class="opt"><input type="radio" name="vibe" value="跟著凱皓帶就好">跟著凱皓帶就好</label></div>
-        </div>
-        <div class="field">
-          <label>不想在節目裡碰的方向（可複選）</label>
-          <div class="opts"><label class="opt"><input type="checkbox" name="nogo" value="特定案例細節">特定案例細節</label><label class="opt"><input type="checkbox" name="nogo" value="家人或伴侶">家人或伴侶</label><label class="opt"><input type="checkbox" name="nogo" value="宗教信仰">宗教信仰</label><label class="opt"><input type="checkbox" name="nogo" value="薪資或職涯">薪資或職涯</label><label class="opt"><input type="checkbox" name="nogo" value="某段特定時期">某段特定時期</label><label class="opt"><input type="checkbox" name="nogo" value="暫時沒有限制">暫時沒有限制</label></div>
-        </div>
-
+        <div class="field"><label>你希望聽眾帶走的是（最多選 2 個）</label><div class="opts"><label class="opt"><input type="checkbox" name="takeaway" value="對這個職業的真實理解">對這個職業的真實理解</label><label class="opt"><input type="checkbox" name="takeaway" value="一個讓人反思的故事">一個讓人反思的故事</label><label class="opt"><input type="checkbox" name="takeaway" value="關於死亡的不同視角">關於死亡的不同視角</label><label class="opt"><input type="checkbox" name="takeaway" value="你這個人本身">你這個人本身</label><label class="opt"><input type="checkbox" name="takeaway" value="一個可以行動的觀念">一個可以行動的觀念</label><label class="opt"><input type="checkbox" name="takeaway" value="跟著感覺走">跟著感覺走</label></div></div>
+        <div class="field"><label>你希望訪談的氣氛比較像</label><div class="opts"><label class="opt"><input type="radio" name="vibe" value="深度可以有情緒">深度、可以有情緒</label><label class="opt"><input type="radio" name="vibe" value="輕鬆聊偶爾深入">輕鬆聊，偶爾深入</label><label class="opt"><input type="radio" name="vibe" value="知識性為主">知識性為主</label><label class="opt"><input type="radio" name="vibe" value="跟著凱皓帶就好">跟著凱皓帶就好</label></div></div>
+        <div class="field"><label>不想在節目裡碰的方向（可複選）</label><div class="opts"><label class="opt"><input type="checkbox" name="nogo" value="特定案例細節">特定案例細節</label><label class="opt"><input type="checkbox" name="nogo" value="家人或伴侶">家人或伴侶</label><label class="opt"><input type="checkbox" name="nogo" value="宗教信仰">宗教信仰</label><label class="opt"><input type="checkbox" name="nogo" value="薪資或職涯">薪資或職涯</label><label class="opt"><input type="checkbox" name="nogo" value="某段特定時期">某段特定時期</label><label class="opt"><input type="checkbox" name="nogo" value="暫時沒有限制">暫時沒有限制</label></div></div>
       </div>
     </div>
-    <div class="fnav">
-      <button class="btn btn-ghost" onclick="go(7,6)">← 上一步</button>
-      <span class="stepind">7 / 8</span>
-      <button class="btn btn-main" onclick="go(7,8)">繼續 →</button>
-    </div>
+    <div class="fnav"><button class="btn btn-ghost" onclick="go(7,6)">← 上一步</button><span class="stepind">7 / 8</span><button class="btn btn-main" onclick="go(7,8)">繼續 →</button></div>
   </div>
 
-  <!-- ══════════ STEP 8 再多告訴我一點 ══════════ -->
+  <!-- STEP 8 -->
   <div id="s8" class="step-pane">
     <div class="sec-mark">08 · 再多告訴我一點</div>
     <div class="card">
       <div class="card-desc">這個區塊沒有對錯，直覺回答就好。</div>
       <div class="g2">
-        <div class="field">
-          <label>在這份工作或經歷裡，有沒有「差點撐不住」的時刻</label>
-          <div class="opts"><label class="opt"><input type="radio" name="breaking" value="有而且我記得很清楚">有，我記得很清楚</label><label class="opt"><input type="radio" name="breaking" value="有過好幾次">有過好幾次</label><label class="opt"><input type="radio" name="breaking" value="有但我消化掉了">有，但消化掉了</label><label class="opt"><input type="radio" name="breaking" value="說不上來但有某種重量">說不上來，但有某種重量</label><label class="opt"><input type="radio" name="breaking" value="沒有我還好">沒有，我還好</label></div>
-        </div>
-        <div class="field">
-          <label>你相信死後有什麼嗎</label>
-          <div class="opts"><label class="opt"><input type="radio" name="afterlife" value="相信有某種延續">相信有某種延續</label><label class="opt"><input type="radio" name="afterlife" value="傾向什麼都沒有">傾向什麼都沒有</label><label class="opt"><input type="radio" name="afterlife" value="說不清楚但有感覺">說不清楚，有感覺</label><label class="opt"><input type="radio" name="afterlife" value="我不去想這件事">我不去想這件事</label><label class="opt"><input type="radio" name="afterlife" value="我的看法一直在變">我的看法一直在變</label></div>
-        </div>
-        <div class="field full">
-          <label>在不同場合，你怎麼介紹自己的工作或身份</label>
-          <div class="opts"><label class="opt"><input type="radio" name="selfdesc" value="直接說不多解釋">直接說，不多解釋</label><label class="opt"><input type="radio" name="selfdesc" value="會說但通常要補充很多">會說，但要補充很多</label><label class="opt"><input type="radio" name="selfdesc" value="看對象有時換個說法">看對象，有時換個說法</label><label class="opt"><input type="radio" name="selfdesc" value="在某些場合不太提">某些場合不太提</label></div>
-        </div>
-        <div class="field full">
-          <label>有沒有一個問題，是你最怕在訪談裡被問到的（可不填，但很有用）</label>
-          <textarea id="f-scaredq" placeholder="不一定要答，但如果有，說出來也沒關係…"></textarea>
-        </div>
-        <div class="field full">
-          <label>用一句話完成這個句子：「如果你問我怎麼看待死亡，我會說⋯⋯」</label>
-          <textarea id="f-deathview" placeholder="直覺回答就好，不用想太多…"></textarea>
-        </div>
-        <div class="field full">
-          <label>如果這集只能讓聽眾記住一件事，你希望是什麼？</label>
-          <textarea id="f-onething" placeholder="不用想太多，直覺說出來的那句話就夠了…"></textarea>
-        </div>
-        <div class="field full">
-          <label>有沒有什麼補充想讓凱皓知道的（可不填）</label>
-          <textarea id="f-extra" placeholder="任何你覺得重要的，或希望凱皓特別注意的…"></textarea>
-        </div>
+        <div class="field"><label>在這份工作或經歷裡，有沒有「差點撐不住」的時刻</label><div class="opts"><label class="opt"><input type="radio" name="breaking" value="有而且我記得很清楚">有，我記得很清楚</label><label class="opt"><input type="radio" name="breaking" value="有過好幾次">有過好幾次</label><label class="opt"><input type="radio" name="breaking" value="有但我消化掉了">有，但消化掉了</label><label class="opt"><input type="radio" name="breaking" value="說不上來但有某種重量">說不上來，但有某種重量</label><label class="opt"><input type="radio" name="breaking" value="沒有我還好">沒有，我還好</label></div></div>
+        <div class="field"><label>你相信死後有什麼嗎</label><div class="opts"><label class="opt"><input type="radio" name="afterlife" value="相信有某種延續">相信有某種延續</label><label class="opt"><input type="radio" name="afterlife" value="傾向什麼都沒有">傾向什麼都沒有</label><label class="opt"><input type="radio" name="afterlife" value="說不清楚但有感覺">說不清楚，有感覺</label><label class="opt"><input type="radio" name="afterlife" value="我不去想這件事">我不去想這件事</label><label class="opt"><input type="radio" name="afterlife" value="我的看法一直在變">我的看法一直在變</label></div></div>
+        <div class="field full"><label>在不同場合，你怎麼介紹自己的工作或身份</label><div class="opts"><label class="opt"><input type="radio" name="selfdesc" value="直接說不多解釋">直接說，不多解釋</label><label class="opt"><input type="radio" name="selfdesc" value="會說但通常要補充很多">會說，但要補充很多</label><label class="opt"><input type="radio" name="selfdesc" value="看對象有時換個說法">看對象，有時換個說法</label><label class="opt"><input type="radio" name="selfdesc" value="在某些場合不太提">某些場合不太提</label></div></div>
+        <div class="field full"><label>有沒有一個問題，是你最怕在訪談裡被問到的（可不填，但很有用）</label><textarea id="f-scaredq" placeholder="不一定要答，但如果有，說出來也沒關係…"></textarea></div>
+        <div class="field full"><label>用一句話完成這個句子：「如果你問我怎麼看待死亡，我會說⋯⋯」</label><textarea id="f-deathview" placeholder="直覺回答就好，不用想太多…"></textarea></div>
+        <div class="field full"><label>如果這集只能讓聽眾記住一件事，你希望是什麼？</label><textarea id="f-onething" placeholder="不用想太多，直覺說出來的那句話就夠了…"></textarea></div>
+        <div class="field full"><label>有沒有什麼補充想讓凱皓知道的（可不填）</label><textarea id="f-extra" placeholder="任何你覺得重要的，或希望凱皓特別注意的…"></textarea></div>
       </div>
     </div>
     <div class="errbox" id="err-submit"></div>
-    <div class="fnav">
-      <button class="btn btn-ghost" onclick="go(8,7)">← 上一步</button>
-      <span class="stepind">8 / 8</span>
-      <button class="btn btn-main" id="btnsubmit" onclick="submitAll()">送出 ☽</button>
-    </div>
+    <div class="fnav"><button class="btn btn-ghost" onclick="go(8,7)">← 上一步</button><span class="stepind">8 / 8</span><button class="btn btn-main" id="btnsubmit" onclick="submitGuest()">送出 ☽</button></div>
   </div>
 
-  <!-- ══════════ PROCESSING ══════════ -->
+  <!-- PROCESSING -->
   <div id="screen-processing">
     <span class="spin">◎</span>
-    <div class="proc-msg">正在為你生成訪綱，寄給凱皓…</div>
+    <div class="proc-msg">正在送出你的資料…</div>
     <ul class="proc-steps">
       <li id="ps-a1">整理你填寫的資料</li>
-      <li id="ps-a2">分析你的故事脈絡與張力</li>
-      <li id="ps-a3">設計段落結構與時間配置</li>
-      <li id="ps-a4">生成深度問題與追問提示</li>
-      <li id="ps-a5">加入主持備注與節奏建議</li>
-      <li id="ps-a6">寄送訪綱到凱皓信箱</li>
+      <li id="ps-a2">通知凱皓</li>
+      <li id="ps-a3">完成</li>
     </ul>
   </div>
 
-  <!-- ══════════ DONE ══════════ -->
+  <!-- DONE -->
   <div id="screen-done">
     <span class="ty-icon">⚰️</span>
     <div class="ty-title">謝謝你願意聊點不吉利的</div>
-    <div class="ty-body">
-      你的資料已成功送出，訪綱也已直接寄給凱皓了。<br>
-      他收到後會仔細閱讀，並在錄製前與你聯繫確認方向。<br><br>
-      期待在錄音室裡見到你。
-    </div>
+    <div class="ty-body">你的資料已成功送出。<br>凱皓收到後會仔細閱讀，並在錄製前與你聯繫確認方向。<br><br>期待在錄音室裡見到你。</div>
   </div>
 
-</div><!-- /wrap -->
+</div>
+</div>
+
+<!-- ════════ HOST VIEW ════════ -->
+<div id="view-host">
+<div class="wrap" style="margin-top:32px">
+
+  <!-- PASSWORD GATE -->
+  <div id="host-pw" class="pw-wrap">
+    <h3>凱皓專區</h3>
+    <p style="font-size:.78rem;color:var(--smoke);margin-bottom:16px;">請輸入密碼</p>
+    <input class="pw-input" id="pw-input" type="password" placeholder="••••••" onkeydown="if(event.key==='Enter')checkPw()">
+    <div style="margin-top:14px"><button class="btn btn-main" onclick="checkPw()">進入</button></div>
+    <div class="errbox on" id="pw-err" style="display:none;margin-top:12px">密碼錯誤</div>
+  </div>
+
+  <!-- HOST MAIN (locked behind pw) -->
+  <div id="host-main" style="display:none">
+
+    <!-- Waiting state -->
+    <div id="host-waiting">
+      <div class="host-banner">
+        <strong>凱皓，</strong>等待來賓填完問卷後，他們的資料會出現在這裡。<br>
+        你也可以直接在下方手動輸入來賓資料。
+      </div>
+
+      <div class="sec-mark">來賓問卷資料</div>
+      <div id="guest-data-display" class="data-preview">
+        <p style="color:var(--ash);font-size:.78rem;text-align:center;padding:20px">尚未收到來賓問卷資料</p>
+      </div>
+
+      <div class="sec-mark">凱皓補充（來賓看不到）</div>
+      <div class="card">
+        <div class="card-desc">這裡只有你看得到。補充你對這位來賓的觀察、你們私下聊過的事、或任何你想讓 AI 知道的背景。</div>
+        <div class="field host-field" style="margin-bottom:14px">
+          <label>凱皓備注 — 你對這個人的觀察、想特別挖的方向</label>
+          <textarea id="h-notes" placeholder="例：他講話很直接不太修飾、他 IG 有篇文章寫媽媽過世很有料、他私下說過差點放棄這行…"></textarea>
+        </div>
+        <div class="field host-field">
+          <label>來賓背景資料 — 貼上新聞、IG 文字、採訪摘要、任何你蒐集到的資料</label>
+          <textarea id="h-background" style="min-height:140px" placeholder="直接貼文章內容、採訪節錄、對話紀錄、或你自己整理的筆記都可以…"></textarea>
+        </div>
+      </div>
+
+      <div class="errbox" id="host-err"></div>
+
+      <div style="text-align:center;margin-top:8px">
+        <button class="btn-gold" id="btn-generate" onclick="generateOutline()">生成訪綱 ☽</button>
+      </div>
+    </div>
+
+    <!-- Generating -->
+    <div id="host-processing" style="display:none;text-align:center;padding:60px 20px">
+      <span class="spin">◎</span>
+      <div class="proc-msg">正在生成訪綱，請稍候…</div>
+      <ul class="proc-steps">
+        <li id="hp-1">分析來賓問卷與背景資料</li>
+        <li id="hp-2">設計敘事弧線與段落結構</li>
+        <li id="hp-3">生成深度問題與追問提示</li>
+        <li id="hp-4">加入主持節奏備注</li>
+        <li id="hp-5">寄送訪綱到信箱</li>
+      </ul>
+    </div>
+
+    <!-- Outline output -->
+    <div id="host-outline" style="display:none">
+      <div class="outline-topbar">
+        <div class="outline-meta">訪綱已生成 · <strong id="ol-date"></strong><br>來賓：<strong id="ol-guest"></strong></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn-copy" onclick="copyOutline()">複製全文</button>
+          <button class="btn-print" onclick="window.print()">列印 / PDF</button>
+          <button class="btn-back2" onclick="resetHost()">← 重新生成</button>
+        </div>
+      </div>
+      <div class="outline-body" id="ol-body"></div>
+    </div>
+
+  </div><!-- /host-main -->
+</div>
+</div>
 
 <script>
-// ══════════════════════════════════════
-// ★ 你的設定填在這裡
-// ══════════════════════════════════════
+// ════════════════════════════════════
+// CONFIG
+// ════════════════════════════════════
 const CONFIG = {
   EMAILJS_PUBLIC_KEY:  'CvO_H40UA4hH9RZzn',
   EMAILJS_SERVICE_ID:  'service_e24navm',
   EMAILJS_TEMPLATE_ID: 'template_mv5lcwm',
   HOST_EMAIL: 'yu.kaihao.0823@gmail.com',
+  HOST_PASSWORD: 'bujili2024',  // ← 你可以改這個密碼
+  WORKER_URL: 'https://bujili-proxy.yu-kaihao-0823.workers.dev',
 };
 
-// EmailJS init
 emailjs.init({ publicKey: CONFIG.EMAILJS_PUBLIC_KEY });
 
-// ══════════════════════════════════════
+// ════════════════════════════════════
+// MODE
+// ════════════════════════════════════
+function setMode(m) {
+  document.getElementById('view-guest').style.display = m==='guest' ? 'block' : 'none';
+  document.getElementById('view-host').style.display  = m==='host'  ? 'block' : 'none';
+  document.getElementById('mbtn-guest').classList.toggle('active', m==='guest');
+  document.getElementById('mbtn-host').classList.toggle('active',  m==='host');
+}
+
+// ════════════════════════════════════
+// PASSWORD
+// ════════════════════════════════════
+function checkPw() {
+  const pw = document.getElementById('pw-input').value;
+  if (pw === CONFIG.HOST_PASSWORD) {
+    document.getElementById('host-pw').style.display   = 'none';
+    document.getElementById('host-main').style.display = 'block';
+    loadGuestData();
+  } else {
+    const err = document.getElementById('pw-err');
+    err.style.display = 'block';
+    err.textContent = '密碼錯誤，請再試一次。';
+  }
+}
+
+// ════════════════════════════════════
 // OPTION TOGGLE
-// ══════════════════════════════════════
+// ════════════════════════════════════
 document.addEventListener('click', e => {
   const lbl = e.target.closest('.opt');
   if (!lbl) return;
   const inp = lbl.querySelector('input');
   if (!inp) return;
   if (inp.type === 'radio') {
-    document.querySelectorAll(`input[name="${inp.name}"]`).forEach(r =>
-      r.closest('.opt').classList.remove('on'));
-    inp.checked = true;
-    lbl.classList.add('on');
+    document.querySelectorAll(`input[name="${inp.name}"]`).forEach(r => r.closest('.opt').classList.remove('on'));
+    inp.checked = true; lbl.classList.add('on');
   } else {
-    inp.checked = !inp.checked;
-    lbl.classList.toggle('on', inp.checked);
+    inp.checked = !inp.checked; lbl.classList.toggle('on', inp.checked);
   }
 });
 
-// ══════════════════════════════════════
+// ════════════════════════════════════
 // STEPS
-// ══════════════════════════════════════
-let cur = 1;
+// ════════════════════════════════════
 function go(from, to) {
   document.getElementById('s'+from).classList.remove('on');
   document.getElementById('s'+to).classList.add('on');
-  cur = to;
   updateProg(to);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 function updateProg(n) {
-  for (let i = 1; i <= 8; i++) {
+  for (let i=1;i<=8;i++) {
     const el = document.getElementById('ps'+i);
-    el.className = 'ps' + (i < n ? ' done' : i === n ? ' active' : '');
+    el.className = 'ps'+(i<n?' done':i===n?' active':'');
   }
 }
 
-// ══════════════════════════════════════
-// DYNAMIC LISTS
-// ══════════════════════════════════════
-
-
-// ══════════════════════════════════════
-// COLLECT DATA
-// ══════════════════════════════════════
+// ════════════════════════════════════
+// COLLECT
+// ════════════════════════════════════
 const gv  = id => (document.getElementById(id)||{}).value?.trim()||'';
 const gr  = name => { const el=document.querySelector(`input[name="${name}"]:checked`); return el?el.value:''; };
 const gc  = name => Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(e=>e.value);
 
 function collect() {
   return {
-    name:         gv('f-name'),
-    contact:      gv('f-contact'),
-    job:          gv('f-job'),
-    exp:          gr('exp'),
-    rank:         gr('rank'),
-    fam:          gr('fam'),
-    famatt:       gr('famatt'),
-    deathtalk:    gr('deathtalk'),
-    familyfig:    gv('f-familyfig'),
-    dfreq:        gr('dfreq'),
-    dconn:        gc('dconn'),
-    firstdeath:   gv('f-firstdeath'),
-    howcame:      gr('howcame'),
-    faqask:       gv('f-faqask'),
-    turning:      gv('f-turning'),
-    hardq:        gc('hardq'),
-    wantleave:    gr('wantleave'),
-    highlights:   gv('f-highlights'),
-    events:       gc('events'),
-    secret:       gr('secret'),
-    mood:         gr('mood'),
-    change:       gc('change'),
-    open:         gv('r-open'),
-    takeaway:     gc('takeaway'),
-    vibe:         gr('vibe'),
-    nogo:         gc('nogo'),
-    breaking:     gr('breaking'),
-    afterlife:    gr('afterlife'),
-    selfdesc:     gr('selfdesc'),
-    scaredq:      gv('f-scaredq'),
-    deathview:    gv('f-deathview'),
-    onething:     gv('f-onething'),
-    extra:        gv('f-extra'),
+    name: gv('f-name'), contact: gv('f-contact'), job: gv('f-job'), exp: gr('exp'),
+    rank: gr('rank'), fam: gr('fam'), famatt: gr('famatt'), deathtalk: gr('deathtalk'),
+    familyfig: gv('f-familyfig'), dfreq: gr('dfreq'), dconn: gc('dconn'),
+    firstdeath: gv('f-firstdeath'), howcame: gr('howcame'), faqask: gv('f-faqask'),
+    turning: gv('f-turning'), wantleave: gr('wantleave'), hardq: gc('hardq'),
+    highlights: gv('f-highlights'), events: gc('events'), secret: gr('secret'),
+    mood: gr('mood'), change: gc('change'), open: gv('r-open'),
+    takeaway: gc('takeaway'), vibe: gr('vibe'), nogo: gc('nogo'),
+    breaking: gr('breaking'), afterlife: gr('afterlife'), selfdesc: gr('selfdesc'),
+    scaredq: gv('f-scaredq'), deathview: gv('f-deathview'),
+    onething: gv('f-onething'), extra: gv('f-extra'),
   };
 }
 
-// ══════════════════════════════════════
-// BUILD PROMPT
-// ══════════════════════════════════════
-function buildPrompt(d) {
+// ════════════════════════════════════
+// GUEST SUBMIT — 只寄通知，不生成訪綱
+// ════════════════════════════════════
+async function submitGuest() {
+  const d = collect();
+  if (!d.name || !d.job) {
+    const err = document.getElementById('err-submit');
+    err.textContent = '請至少填寫你的稱呼和職業身分。';
+    err.classList.add('on'); return;
+  }
+  document.getElementById('err-submit').classList.remove('on');
+  document.getElementById('btnsubmit').disabled = true;
+  document.getElementById('s8').classList.remove('on');
+  document.getElementById('prog').style.display = 'none';
+  document.getElementById('screen-processing').classList.add('on');
+
+  // Animate steps
+  const sids = ['ps-a1','ps-a2','ps-a3'];
+  sids.forEach(s => document.getElementById(s).className = '');
+  let si = 0;
+  const t = setInterval(() => {
+    if (si > 0) document.getElementById(sids[si-1]).className = 'ok';
+    if (si < sids.length) { document.getElementById(sids[si]).className = 'on'; si++; }
+  }, 800);
+
+  // Save to localStorage for host
+  try { localStorage.setItem('bujili_guest', JSON.stringify(d)); } catch(e) {}
+
+  try {
+    // Format guest data as text for notification email
+    const summary = formatGuestData(d);
+
+    await emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_ID, {
+      to_email:        CONFIG.HOST_EMAIL,
+      guest_name:      d.name,
+      guest_job:       d.job,
+      record_date:     new Date().toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric'}),
+      outline_content: `【來賓問卷已填寫完成，請至凱皓專區生成訪綱】\n\n${summary}`,
+    });
+
+    clearInterval(t);
+    sids.forEach(s => document.getElementById(s).className = 'ok');
+    setTimeout(() => {
+      document.getElementById('screen-processing').classList.remove('on');
+      document.getElementById('screen-done').classList.add('on');
+    }, 500);
+  } catch(err) {
+    clearInterval(t);
+    document.getElementById('screen-processing').classList.remove('on');
+    document.getElementById('s8').classList.add('on');
+    document.getElementById('prog').style.display = 'flex';
+    document.getElementById('btnsubmit').disabled = false;
+    const errEl = document.getElementById('err-submit');
+    errEl.textContent = '送出失敗：' + err.message + '。請稍後再試。';
+    errEl.classList.add('on');
+    window.scrollTo({top:99999,behavior:'smooth'});
+  }
+}
+
+function formatGuestData(d) {
   const lines = [];
-  lines.push(`來賓姓名：${d.name}`);
-  lines.push(`職業／身分：${d.job}，從業 ${d.exp}`);
-  lines.push(`聯絡方式：${d.contact}`);
-  lines.push(`家庭：${d.rank}，${d.fam}，家人對其走這條路的態度：${d.famatt}`);
-  lines.push(`家裡對死亡話題的態度：${d.deathtalk}`);
+  lines.push(`姓名：${d.name}`);
+  lines.push(`職業：${d.job}，${d.exp}`);
+  lines.push(`聯絡：${d.contact}`);
+  lines.push(`家庭：${d.rank}，${d.fam}`);
+  lines.push(`家人態度：${d.famatt}`);
+  lines.push(`家裡對死亡：${d.deathtalk}`);
   if (d.familyfig) lines.push(`家族影響人：${d.familyfig}`);
-  lines.push(`與死亡的連結頻率：${d.dfreq}`);
-  if (d.dconn.length) lines.push(`與死亡的連結方式：${d.dconn.join('、')}`);
-  if (d.firstdeath)   lines.push(`第一次意識到死亡：${d.firstdeath}`);
-  lines.push(`走進這條路的方式：${d.howcame}`);
-  if (d.turning)  lines.push(`關鍵轉折：${d.turning}`);
-  if (d.faqask)   lines.push(`最常被問的問題：${d.faqask}`);
-  if (d.hardq.length) lines.push(`最難回答的問題類型：${d.hardq.join('、')}`);
-  if (d.wantleave) lines.push(`走進這行後有沒有想過離開：${d.wantleave}`);
-  if (d.highlights) lines.push(`希望節目提到的作品或成就：${d.highlights}`);
-  if (d.events.length) lines.push(`重要生命事件：${d.events.join('、')}`);
-  lines.push(`有沒有很少說但想讓人知道的事：${d.secret}`);
+  lines.push(`死亡頻率：${d.dfreq}`);
+  if (d.dconn.length) lines.push(`連結方式：${d.dconn.join('、')}`);
+  if (d.firstdeath) lines.push(`第一次意識到死亡：${d.firstdeath}`);
+  lines.push(`走進這行：${d.howcame}`);
+  if (d.turning) lines.push(`關鍵轉折：${d.turning}`);
+  lines.push(`想過離開：${d.wantleave}`);
+  if (d.faqask) lines.push(`最常被問：${d.faqask}`);
+  if (d.hardq.length) lines.push(`最難回答：${d.hardq.join('、')}`);
+  if (d.highlights) lines.push(`希望提到：${d.highlights}`);
+  if (d.events.length) lines.push(`重要事件：${d.events.join('、')}`);
+  lines.push(`很少說但想讓人知道：${d.secret}`);
   lines.push(`目前狀態：${d.mood}`);
   if (d.change.length) lines.push(`近期變化：${d.change.join('、')}`);
-  lines.push(`公開談論意願：${d.open}/5`);
-  if (d.takeaway.length) lines.push(`希望聽眾帶走：${d.takeaway.join('、')}`);
-  if (d.vibe)  lines.push(`希望訪談氣氛：${d.vibe}`);
-  if (d.nogo.length) lines.push(`不想碰的方向：${d.nogo.join('、')}`);
-  lines.push(`差點撐不住的時刻：${d.breaking}`);
-  lines.push(`對死後的看法：${d.afterlife}`);
+  lines.push(`公開意願：${d.open}/5`);
+  if (d.takeaway.length) lines.push(`希望帶走：${d.takeaway.join('、')}`);
+  if (d.vibe) lines.push(`訪談氣氛：${d.vibe}`);
+  if (d.nogo.length) lines.push(`不想碰：${d.nogo.join('、')}`);
+  lines.push(`差點撐不住：${d.breaking}`);
+  lines.push(`死後看法：${d.afterlife}`);
+  lines.push(`介紹自己：${d.selfdesc}`);
+  if (d.scaredq) lines.push(`最怕被問：${d.scaredq}`);
+  if (d.deathview) lines.push(`對死亡一句話：${d.deathview}`);
+  if (d.onething) lines.push(`聽眾記住一件事：${d.onething}`);
+  if (d.extra) lines.push(`補充：${d.extra}`);
+  return lines.join('\n');
+}
+
+// ════════════════════════════════════
+// HOST — LOAD GUEST DATA
+// ════════════════════════════════════
+function loadGuestData() {
+  try {
+    const saved = localStorage.getItem('bujili_guest');
+    if (saved) {
+      const d = JSON.parse(saved);
+      const html = formatGuestDataHTML(d);
+      document.getElementById('guest-data-display').innerHTML = html;
+    }
+  } catch(e) {}
+}
+
+function formatGuestDataHTML(d) {
+  const rows = [
+    ['姓名', d.name], ['職業', d.job + (d.exp?' ・ '+d.exp:'')],
+    ['聯絡', d.contact], ['家庭', [d.rank, d.fam].filter(Boolean).join('・')],
+    ['家人態度', d.famatt], ['家裡對死亡', d.deathtalk],
+    ['家族影響人', d.familyfig], ['死亡頻率', d.dfreq],
+    ['連結方式', d.dconn?.join('、')], ['第一次意識到死亡', d.firstdeath],
+    ['走進這行', d.howcame], ['關鍵轉折', d.turning],
+    ['想過離開？', d.wantleave], ['最常被問', d.faqask],
+    ['最難回答', d.hardq?.join('、')], ['希望節目提到', d.highlights],
+    ['重要事件', d.events?.join('、')], ['很少說但想讓人知道', d.secret],
+    ['目前狀態', d.mood], ['近期變化', d.change?.join('、')],
+    ['公開意願', d.open ? d.open+'/5' : ''],
+    ['訪談氣氛', d.vibe], ['不想碰', d.nogo?.join('、')],
+    ['差點撐不住', d.breaking], ['死後看法', d.afterlife],
+    ['介紹自己的方式', d.selfdesc], ['最怕被問', d.scaredq],
+    ['對死亡一句話', d.deathview], ['聽眾記住一件事', d.onething],
+    ['補充', d.extra],
+  ];
+  return '<h4>來賓填寫內容</h4>' + rows.filter(r=>r[1]).map(r=>
+    `<div class="data-row"><span class="data-label">${r[0]}</span><span class="data-val">${r[1]}</span></div>`
+  ).join('');
+}
+
+// ════════════════════════════════════
+// BUILD PROMPT
+// ════════════════════════════════════
+function buildPrompt(d, notes, background) {
+  const lines = [];
+  lines.push(`姓名：${d.name}`);
+  lines.push(`職業／身分：${d.job}，從業 ${d.exp}`);
+  lines.push(`家庭：${d.rank}，${d.fam}，家人態度：${d.famatt}`);
+  lines.push(`家裡對死亡的態度：${d.deathtalk}`);
+  if (d.familyfig) lines.push(`家族影響人：${d.familyfig}`);
+  lines.push(`與死亡的連結頻率：${d.dfreq}`);
+  if (d.dconn?.length) lines.push(`連結方式：${d.dconn.join('、')}`);
+  if (d.firstdeath) lines.push(`第一次意識到死亡：${d.firstdeath}`);
+  lines.push(`走進這行：${d.howcame}`);
+  if (d.turning) lines.push(`關鍵轉折：${d.turning}`);
+  lines.push(`想過離開？：${d.wantleave}`);
+  if (d.faqask) lines.push(`最常被問：${d.faqask}`);
+  if (d.hardq?.length) lines.push(`最難回答：${d.hardq.join('、')}`);
+  if (d.highlights) lines.push(`希望節目提到：${d.highlights}`);
+  if (d.events?.length) lines.push(`重要生命事件：${d.events.join('、')}`);
+  lines.push(`很少說但想讓人知道：${d.secret}`);
+  lines.push(`目前狀態：${d.mood}`);
+  if (d.change?.length) lines.push(`近期變化：${d.change.join('、')}`);
+  lines.push(`公開意願：${d.open}/5`);
+  if (d.takeaway?.length) lines.push(`希望聽眾帶走：${d.takeaway.join('、')}`);
+  if (d.vibe) lines.push(`希望訪談氣氛：${d.vibe}`);
+  if (d.nogo?.length) lines.push(`不想碰：${d.nogo.join('、')}`);
+  lines.push(`差點撐不住：${d.breaking}`);
+  lines.push(`死後看法：${d.afterlife}`);
   lines.push(`介紹自己的方式：${d.selfdesc}`);
-  if (d.onething)   lines.push(`如果只能讓聽眾記住一件事：${d.onething}`);
-  if (d.scaredq)    lines.push(`最怕被問的問題：${d.scaredq}`);
-  if (d.deathview)  lines.push(`對死亡的一句話：「${d.deathview}」`);
-  if (d.extra)      lines.push(`補充給凱皓：${d.extra}`);
+  if (d.scaredq) lines.push(`最怕被問的問題：${d.scaredq}`);
+  if (d.deathview) lines.push(`對死亡的一句話：「${d.deathview}」`);
+  if (d.onething) lines.push(`如果只能讓聽眾記住一件事：${d.onething}`);
+  if (d.extra) lines.push(`補充給凱皓：${d.extra}`);
 
-  return `你是「今天聊點不吉利的」Podcast 的專業訪談設計師。這個節目由主持人凱皓主持，專門和各行各業的人聊死亡、失去、崩潰、禁忌、黑暗人生議題——不迴避，不給廉價安慰，問題要真實、夠深、夠直接，但有溫度，不是為了衝突而衝突。
+  let hostSection = '';
+  if (notes || background) {
+    hostSection = `\n\n【凱皓的補充觀察與背景資料】\n`;
+    if (notes) hostSection += `\n主持人備注：${notes}\n`;
+    if (background) hostSection += `\n來賓背景資料：\n${background}\n`;
+  }
 
-以下是來賓填寫的完整問卷資料：
+  return `你是「今天聊點不吉利的」Podcast 的專業訪談設計師。這個節目由主持人凱皓主持，專門和各行各業的人聊死亡、失去、崩潰、禁忌、黑暗人生議題——不迴避，不給廉價安慰，問題要真實、夠深、夠直接，但有溫度。
 
-${lines.join('\n')}
+以下是來賓填寫的完整問卷資料，以及凱皓補充的背景觀察：
 
-請根據以上資料，為凱皓設計一份完整的訪談大綱，目標時長 60–90 分鐘。格式如下（繁體中文）：
+${lines.join('\n')}${hostSection}
 
-第一行：集數標題（有節目感、有點不吉利、像文學的標題，例如「他每天幫死人換衣服，但他還沒想清楚自己活著是為什麼」這種風格）
-第二行：一句話節目簡介（給聽眾看的）
+請根據以上所有資料（特別是凱皓的補充觀察和背景資料），為凱皓設計一份完整的訪談大綱，目標時長 60–90 分鐘。
 
-然後輸出 6–7 個訪談段落，每個段落：
+問題必須高度客製化，針對這位來賓的具體故事、具體經歷、具體措辭，不能是通用問題。
 
+格式：
+第一行：集數標題（有節目感、像文學標題、有點不吉利）
+第二行：一句話節目簡介
+
+輸出 6–7 個訪談段落，每段：
 【段落N：段落名稱】（預計時間：XX–XX 分鐘）
-敘事目的：這段要達到什麼，一句話
+敘事目的：一句話
 
 問題：
-Q1. 主問題
+Q1. 主問題（直接、深、口語）
 → 追問：補充問法（選填）
 標籤：[深挖] 或 [故事] 或 [邊緣] 或 [收束]
 
-（每段 3–5 題）
+（3–5題）
 
-主持人提示：這段節奏與引導建議
+主持人提示：節奏與引導建議
 
 最後：
 【製作備注】
@@ -706,59 +719,50 @@ Q1. 主問題
 • 凱皓要特別注意的地方：
 
 問題品質要求：
-- 不能問「你當時有什麼感受？」這種廢話
-- 要問「那個瞬間你有沒有閃過——算了，讓它結束好了」這種直球
-- 每個問題來賓不能用「對」「錯」回答
+- 不問「你當時有什麼感受？」這種廢話
+- 要問像「那個瞬間你有沒有閃過——算了，讓它結束好了」這種直球
+- 每個問題不能用「對/錯」回答
 - 至少兩題讓來賓不舒服但無法迴避
-- 問題要口語，像真的在說話
-- 必須依據來賓的具體回答設計，不要通用問題`;
+- 問題口語化，像真的在說話
+- 必須針對來賓的具體回答，不要套用通用問題`;
 }
 
-// ══════════════════════════════════════
-// STEP ANIMATION
-// ══════════════════════════════════════
-let stepTimer;
-const stepIds = ['ps-a1','ps-a2','ps-a3','ps-a4','ps-a5','ps-a6'];
-function startSteps() {
-  let i = 0;
-  stepIds.forEach(id => document.getElementById(id).className = '');
-  stepTimer = setInterval(() => {
-    if (i > 0) document.getElementById(stepIds[i-1]).className = 'ok';
-    if (i < stepIds.length) {
-      document.getElementById(stepIds[i]).className = 'on';
-      i++;
-    }
-  }, 1500);
-}
-function doneSteps() {
-  clearInterval(stepTimer);
-  stepIds.forEach(id => document.getElementById(id).className = 'ok');
-}
+// ════════════════════════════════════
+// HOST — GENERATE OUTLINE
+// ════════════════════════════════════
+async function generateOutline() {
+  const notes      = document.getElementById('h-notes').value.trim();
+  const background = document.getElementById('h-background').value.trim();
 
-// ══════════════════════════════════════
-// SUBMIT
-// ══════════════════════════════════════
-async function submitAll() {
-  const d = collect();
-  if (!d.name || !d.job) {
-    const err = document.getElementById('err-submit');
-    err.textContent = '請至少填寫你的稱呼和職業身分。';
-    err.classList.add('on');
-    return;
+  // Get guest data
+  let d = {};
+  try {
+    const saved = localStorage.getItem('bujili_guest');
+    if (saved) d = JSON.parse(saved);
+  } catch(e) {}
+
+  if (!d.name) {
+    const err = document.getElementById('host-err');
+    err.textContent = '找不到來賓資料。請確認來賓已填寫問卷，或重新整理頁面。';
+    err.classList.add('on'); return;
   }
-  document.getElementById('err-submit').classList.remove('on');
-  document.getElementById('btnsubmit').disabled = true;
+  document.getElementById('host-err').classList.remove('on');
 
-  // Hide form, show processing
-  document.getElementById('s8').classList.remove('on');
-  document.getElementById('prog').style.display = 'none';
-  document.getElementById('screen-processing').classList.add('on');
-  startSteps();
+  document.getElementById('host-waiting').style.display    = 'none';
+  document.getElementById('host-processing').style.display = 'block';
+
+  const hids = ['hp-1','hp-2','hp-3','hp-4','hp-5'];
+  hids.forEach(h => document.getElementById(h).className = '');
+  let hi = 0;
+  const ht = setInterval(() => {
+    if (hi > 0) document.getElementById(hids[hi-1]).className = 'ok';
+    if (hi < hids.length) { document.getElementById(hids[hi]).className = 'on'; hi++; }
+  }, 1200);
 
   try {
-    // 1. Generate outline via Claude API
-    const prompt = buildPrompt(d);
-    const apiRes = await fetch('https://bujili-proxy.yu-kaihao-0823.workers.dev', {
+    const prompt = buildPrompt(d, notes, background);
+
+    const apiRes = await fetch(CONFIG.WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -771,38 +775,60 @@ async function submitAll() {
     const apiData = await apiRes.json();
     const outline = apiData.choices?.[0]?.message?.content || '（生成失敗）';
 
-    // 2. Send email via EmailJS
-    // EmailJS template variables: {{guest_name}}, {{guest_job}}, {{outline_content}}, {{to_email}}
+    // Send email
     await emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_ID, {
-      to_email:       CONFIG.HOST_EMAIL,
-      guest_name:     d.name,
-      guest_job:      d.job,
-      record_date:    new Date().toLocaleDateString('zh-TW', { year:'numeric', month:'long', day:'numeric' }),
+      to_email:        CONFIG.HOST_EMAIL,
+      guest_name:      d.name,
+      guest_job:       d.job,
+      record_date:     new Date().toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric'}),
       outline_content: outline,
     });
 
-    doneSteps();
+    clearInterval(ht);
+    hids.forEach(h => document.getElementById(h).className = 'ok');
+
     setTimeout(() => {
-      document.getElementById('screen-processing').classList.remove('on');
-      document.getElementById('screen-done').classList.add('on');
-    }, 600);
+      document.getElementById('host-processing').style.display = 'none';
+      document.getElementById('ol-date').textContent  = new Date().toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric'});
+      document.getElementById('ol-guest').textContent = d.name + '｜' + d.job;
+      document.getElementById('ol-body').textContent  = outline;
+      document.getElementById('host-outline').style.display = 'block';
+    }, 500);
 
   } catch(err) {
-    doneSteps();
-    document.getElementById('screen-processing').classList.remove('on');
-    document.getElementById('s8').classList.add('on');
-    document.getElementById('prog').style.display = 'flex';
-    document.getElementById('btnsubmit').disabled = false;
-    const errEl = document.getElementById('err-submit');
-    errEl.textContent = '發生錯誤：' + err.message + '。請稍後再試，或直接聯絡凱皓。';
+    clearInterval(ht);
+    document.getElementById('host-processing').style.display = 'none';
+    document.getElementById('host-waiting').style.display    = 'block';
+    const errEl = document.getElementById('host-err');
+    errEl.textContent = '生成失敗：' + err.message;
     errEl.classList.add('on');
-    window.scrollTo({ top: 99999, behavior: 'smooth' });
   }
+}
+
+function resetHost() {
+  document.getElementById('host-outline').style.display  = 'none';
+  document.getElementById('host-waiting').style.display  = 'block';
+}
+
+function copyOutline() {
+  const txt = document.getElementById('ol-body').textContent;
+  navigator.clipboard.writeText(txt).then(() => {
+    const b = document.querySelector('.btn-copy');
+    const orig = b.textContent;
+    b.textContent = '✓ 已複製';
+    setTimeout(() => b.textContent = orig, 2000);
+  });
 }
 
 function esc(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
+
+// Init
+window.addEventListener('load', () => {
+  document.getElementById('view-guest').style.display = 'block';
+  document.getElementById('view-host').style.display  = 'none';
+});
 </script>
 </body>
 </html>
